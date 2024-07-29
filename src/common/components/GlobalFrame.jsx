@@ -4,7 +4,7 @@ import styled from 'styled-components';
 
 const GlobalFrameInner = styled.div`
   width: 390px;
-  height: 844px;
+  height: 797px;
   margin: 0 auto;
   display: flex;
   overflow: hidden;

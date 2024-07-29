@@ -7,7 +7,6 @@ import Webcam from 'react-webcam';
 const WebcamWrapper = styled.div`
   width: 100%;
   height: 50%;
-  object-fit: cover;
 `;
 
 const StyledWebcam = styled(Webcam)`
@@ -21,7 +20,7 @@ const WebcamTest = () => {
     <WebcamWrapper>
       <StyledWebcam
         width="390px"
-        height="844px"
+        height="797px"
         audio={false}
         ref={webcamTestRef}
         screenshotFormat="image/jpeg"
