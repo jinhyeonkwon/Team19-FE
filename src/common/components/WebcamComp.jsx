@@ -50,7 +50,7 @@ const CaptureButtonWhiteCircle = styled.div`
 
 const CaptureButtonImg = styled.img`
   position: absolute;
-  top: 14px;
+  top: ${({ isClicked }) => (isClicked ? '19px' : '14px')};
   left: 21px;
   right: 21px;
   opacity: ${({ isClicked }) => (isClicked ? 0.6 : 1)};
