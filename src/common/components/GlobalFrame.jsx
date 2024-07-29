@@ -7,6 +7,7 @@ const GlobalFrameInner = styled.div`
   height: 844px;
   margin: 0 auto;
   display: flex;
+  overflow: hidden;
 `;
 
 const GlobalFrame = ({ children = null }) => (

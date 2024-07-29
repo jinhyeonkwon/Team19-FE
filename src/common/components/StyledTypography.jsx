@@ -57,6 +57,12 @@ const StyledTypography = ({
       lh = 150;
       ls = -0.32;
       break;
+    case '14B':
+      fs = 14;
+      fw = 'BOLD';
+      lh = 150;
+      ls = -0.28;
+      break;
     case '14M':
       fs = 14;
       fw = 'MEDIUM';
