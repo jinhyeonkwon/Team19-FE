@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/Team19-FE/static/css/main.92326461.css",
+    "main.js": "/Team19-FE/static/js/main.f472108b.js",
+    "static/js/453.ebf6c4ac.chunk.js": "/Team19-FE/static/js/453.ebf6c4ac.chunk.js",
+    "index.html": "/Team19-FE/index.html",
+    "main.92326461.css.map": "/Team19-FE/static/css/main.92326461.css.map",
+    "main.f472108b.js.map": "/Team19-FE/static/js/main.f472108b.js.map",
+    "453.ebf6c4ac.chunk.js.map": "/Team19-FE/static/js/453.ebf6c4ac.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.92326461.css",
+    "static/js/main.f472108b.js"
+  ]
+}
