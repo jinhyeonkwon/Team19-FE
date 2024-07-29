@@ -14,8 +14,16 @@ const GlobalFrameInner = styled.div`
   right: calc(50% - 195px);
 `;
 
+const GlobalRelativeFrame = styled.div`
+  width: 100%;
+  height: 100%;
+  position: relative;
+`;
+
 const GlobalFrame = ({ children = null }) => (
-  <GlobalFrameInner>{children}</GlobalFrameInner>
+  <GlobalFrameInner>
+    <GlobalRelativeFrame>{children}</GlobalRelativeFrame>
+  </GlobalFrameInner>
 );
 
 export default GlobalFrame;
