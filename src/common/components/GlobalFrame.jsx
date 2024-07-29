@@ -8,6 +8,10 @@ const GlobalFrameInner = styled.div`
   margin: 0 auto;
   display: flex;
   overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: auto;
+  right: auto;
 `;
 
 const GlobalFrame = ({ children = null }) => (
