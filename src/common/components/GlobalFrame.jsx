@@ -10,8 +10,8 @@ const GlobalFrameInner = styled.div`
   overflow: hidden;
   position: fixed;
   top: 0;
-  left: auto;
-  right: auto;
+  left: calc(50% - 195px);
+  right: calc(50% - 195px);
 `;
 
 const GlobalFrame = ({ children = null }) => (
