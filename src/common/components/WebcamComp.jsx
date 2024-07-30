@@ -18,12 +18,11 @@ const StyledWebcam = styled(Webcam)`
   object-fit: cover;
 `;
 
-const WebcamComp = ({ setImageUrl, setIsLoading, setStep }) => {
+const WebcamComp = ({ setImageUrl, setIsLoading, setStep, setAudioSrc }) => {
   const webcamRef = React.useRef(null);
 
   const [imgSrc, setImgSrc] = useState(null);
 
-  const [audioSrc, setAudioSrc] = useState(null); // 받은 audio 재생
   // const [loading, setLoading] = useState(false);
 
   // const capture = useCallback(() => {
@@ -69,13 +68,6 @@ const WebcamComp = ({ setImageUrl, setIsLoading, setStep }) => {
     setImageUrl(imageSrc);
     imageTestWrapper();
   };
-
-  useEffect(() => {
-    if (audioSrc) {
-      const audio = new Audio(audioSrc);
-      audio.play();
-    }
-  }, [audioSrc]);
   // ---------------------------------------------------------------------------
 
   return (

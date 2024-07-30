@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
+import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
 
 import WebcamComp from '../../common/components/WebcamComp';
 import QuestionHeader from '../../common/components/QuestionHeader';
@@ -9,6 +10,11 @@ import { LoadingModal } from '../../common/components/LoadingModal';
 import QuestionButtonWithBackground from '../../common/components/QuestionButtonWithText';
 import ChattingHeader from '../../common/components/ChattingHeader';
 import { ChattingMessage } from '../../common/components/ChattingMessage';
+
+import { audioTestAndSave } from '../../services/analyzeAudio';
+
+import APIBase from '../../services/APIBase';
+import VoiceRecorder from '../../common/components/VoiceRecorder';
 
 const InfoBoxWrapper = styled.div`
   position: absolute;
@@ -62,6 +68,10 @@ const ChattingHeaderWrapper = styled.div`
   flex-shrink: 0;
 `;
 
+const VoiceRecorderWrapper = styled(VoiceRecorder)`
+  z-index: 10;
+`;
+
 const dummyChat = [
   {
     id: 0,
@@ -73,7 +83,7 @@ const dummyChat = [
 
 const ChatList = styled.div`
   width: 352px;
-  pading: 0px 24px;
+  padding: 0px 24px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -82,13 +92,15 @@ const ChatList = styled.div`
 const RealChatList = ({ chatList }) => (
   <ChatList>
     {chatList.map(({ id, text, isMine }) => (
-      <ChattingMessage text={text} isMine={isMine} />
+      <ChattingMessage key={id} text={text} isMine={isMine} />
     ))}
   </ChatList>
 );
 
 const CaptureQ = () => {
   const [imageUrl, setImageUrl] = useState(null);
+
+  const [audioSrc, setAudioSrc] = useState(null);
 
   const [step, setStep] = useState(0);
   // 0 : 촬영, 1 : 채팅
@@ -100,6 +112,13 @@ const CaptureQ = () => {
   useEffect(() => {
     console.log(imageUrl);
   }, [imageUrl]);
+
+  useEffect(() => {
+    if (audioSrc) {
+      const audio = new Audio(audioSrc);
+      audio.play();
+    }
+  }, [audioSrc]);
 
   return (
     <div>
@@ -128,6 +147,7 @@ const CaptureQ = () => {
               setImageUrl={setImageUrl}
               setIsLoading={setIsLoading}
               setStep={setStep}
+              setAudioSrc={setAudioSrc}
             />
           </FunctionWrapper>
         </div>
@@ -138,6 +158,7 @@ const CaptureQ = () => {
           </ChattingHeaderWrapper>
           <ChattingArea>
             <RealChatList chatList={dummyChat} />
+            <VoiceRecorderWrapper setAudioSrc={setAudioSrc} />
           </ChattingArea>
           <CapturedImageWrapper>
             <CapturedImage src={imageUrl} alt="captured image" />

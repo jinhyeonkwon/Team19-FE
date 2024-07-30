@@ -21,7 +21,7 @@ export const analyzeImage = (imgSrc) => {
     .then((response1) => {
       console.log('2번째 요청');
       return axiosInstance
-        .get('/analyze_image_and_return_response_and_audio_2', {
+        .get('/get_audio_data', {
           headers: {
             'Content-Type': 'multipart/form-data',
           },
