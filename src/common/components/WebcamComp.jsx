@@ -18,7 +18,7 @@ const StyledWebcam = styled(Webcam)`
   object-fit: cover;
 `;
 
-const WebcamComp = ({ setImageUrl, setIsLoading }) => {
+const WebcamComp = ({ setImageUrl, setIsLoading, setStep }) => {
   const webcamRef = React.useRef(null);
 
   const [imgSrc, setImgSrc] = useState(null);
@@ -59,6 +59,7 @@ const WebcamComp = ({ setImageUrl, setIsLoading }) => {
         console.error('Error uploading file', err);
       } finally {
         setIsLoading(false);
+        setStep((step) => step + 1);
       }
     }
   };

@@ -42,17 +42,17 @@ const ModalInnerWrapper = styled.div`
   gap: 16px;
 `;
 
-export const LoadingModal = () => (
+export const LoadingModal = ({ first, second }) => (
   <ModalBackground>
     <ModalBox>
       <ModalInnerWrapper>
         <img src="/images/moya_with_question.svg" alt="loading" />
         <ModalTexts>
           <StyledTypography type="20R" ta="center" color="BLACK">
-            이미지 분석 중...
+            {first}
           </StyledTypography>
           <StyledTypography type="24B" ta="center" color="BLACK">
-            모야가 살펴보고 있어!
+            {second}
           </StyledTypography>
         </ModalTexts>
       </ModalInnerWrapper>
