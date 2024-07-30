@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 
 import WebcamComp from '../../common/components/WebcamComp';
 import QuestionHeader from '../../common/components/QuestionHeader';
@@ -9,6 +9,14 @@ import { LoadingModal } from '../../common/components/LoadingModal';
 import QuestionButtonWithBackground from '../../common/components/QuestionButtonWithText';
 import ChattingHeader from '../../common/components/ChattingHeader';
 import { ChattingMessage } from '../../common/components/ChattingMessage';
+import { ReactMic } from 'react-mic';
+import {
+  analyzeAudio,
+  analyzeAudioAndSave,
+  audioTest,
+  audioTestAndSave,
+  uploadAudio,
+} from '../../services/analyzeAudio';
 
 const InfoBoxWrapper = styled.div`
   position: absolute;
@@ -49,7 +57,7 @@ const ChattingArea = styled.div`
   flex-direction: column;
   justify-content: flex-end;
   align-items: center;
-  padding: 12px 0px;
+  padding: 8px 0px;
 `;
 
 const QuestionButtonWrapper = styled.div`
@@ -73,7 +81,7 @@ const dummyChat = [
 
 const ChatList = styled.div`
   width: 352px;
-  pading: 0px 24px;
+  padding: 0px 24px;
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -82,24 +90,69 @@ const ChatList = styled.div`
 const RealChatList = ({ chatList }) => (
   <ChatList>
     {chatList.map(({ id, text, isMine }) => (
-      <ChattingMessage text={text} isMine={isMine} />
+      <ChattingMessage key={id} text={text} isMine={isMine} />
     ))}
   </ChatList>
 );
 
 const CaptureQ = () => {
   const [imageUrl, setImageUrl] = useState(null);
-
-  const [step, setStep] = useState(0);
-  // 0 : 촬영, 1 : 채팅
-
+  const [step, setStep] = useState(0); // 0 : 촬영, 1 : 채팅
   const [isLoading, setIsLoading] = useState(false);
-
+  const [isRecording, setIsRecording] = useState(false);
+  const [audioBlob, setAudioBlob] = useState(null);
   const [chattingTitle, setChattingTitle] = useState('모야Q 채팅하기');
 
   useEffect(() => {
     console.log(imageUrl);
   }, [imageUrl]);
+
+  const startRecording = () => {
+    navigator.mediaDevices
+      .getUserMedia({ audio: true })
+      .then((stream) => {
+        setIsRecording(true);
+      })
+      .catch((err) => {
+        console.error('The following error occurred: ' + err);
+      });
+  };
+
+  const stopRecording = () => {
+    setIsRecording(false);
+  };
+
+  const onData = (recordedBlob) => {
+    console.log('chunk of real-time data is: ', recordedBlob);
+  };
+
+  const onStop = (recordedBlob) => {
+    console.log('recordedBlob is: ', recordedBlob);
+    setAudioBlob(recordedBlob);
+    uploadAudio();
+  };
+
+  const uploadAudio = async () => {
+    if (audioBlob) {
+      try {
+        const formData = new FormData();
+        formData.append('file', audioBlob.blob, 'recording.wav');
+
+        const response = await audioTestAndSave(formData);
+        console.log('Response:', response.data);
+      } catch (error) {
+        console.error('Error uploading audio file', error);
+      }
+    }
+  };
+
+  const handleQuestionButtonClick = () => {
+    if (isRecording) {
+      stopRecording();
+    } else {
+      startRecording();
+    }
+  };
 
   return (
     <div>
@@ -143,8 +196,16 @@ const CaptureQ = () => {
             <CapturedImage src={imageUrl} alt="captured image" />
           </CapturedImageWrapper>
           <QuestionButtonWrapper>
-            <QuestionButtonWithBackground />
+            <QuestionButtonWithBackground onClick={handleQuestionButtonClick} />
           </QuestionButtonWrapper>
+          <ReactMic
+            record={isRecording}
+            className="sound-wave"
+            onStop={onStop}
+            onData={onData}
+            strokeColor="#000000"
+            backgroundColor="#FF4081"
+          />
         </ChattingStepWrapper>
       )}
     </div>

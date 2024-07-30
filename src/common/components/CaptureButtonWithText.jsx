@@ -74,7 +74,7 @@ const CaptureButton = ({ onClick }) => {
 
 const CaptureButtonWithText = styled.div`
   display: flex;
-  position:
+  position: absolute;
   top: 22px;
   width: 124px;
   flex-direction: column;

@@ -74,7 +74,7 @@ const QuestionButton = ({ onClick }) => {
 
 const QuestionButtonWithText = styled.div`
   display: flex;
-  position:
+  position: absolute;
   top: 22px;
   width: 124px;
   flex-direction: column;
