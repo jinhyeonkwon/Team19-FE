@@ -1,6 +1,6 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from '../axiosInstance';
 
-const APITest = async () => {
+export const APITest = async () => {
   try {
     const response = await axiosInstance.get('/');
     return response;
@@ -8,5 +8,3 @@ const APITest = async () => {
     throw err;
   }
 };
-
-export default APITest;

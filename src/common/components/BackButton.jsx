@@ -11,7 +11,7 @@ const BackButtonWrapper = styled.div`
   gap: 8px;
   flex-shrink: 0;
   border-radius: 10px;
-  border: 3px solid var(--Purple-100, #f5eafa);
+  box-shadow: 0 0 0 3px var(--Purple-100, #f5eafa);
   background: var(--Purple-600S, #704fe6);
 `;
 

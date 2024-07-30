@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 
 import styled from 'styled-components';
-import axios from 'axios';
 
 import Webcam from 'react-webcam';
 import CaptureButtonWithBackground from './CaptureButtonWithText';
-import APIBase from '../../services/APIBase';
 
-import APITest from '../../services/APITest';
+import { analyzeImage } from '../../services/analyzeImage';
+import InfoBox from './FloatingInfobox';
+import { APITest } from '../../services/test/APITest';
 
 const WebcamWrapper = styled.div`
   width: 100%;
@@ -21,25 +21,59 @@ const StyledWebcam = styled(Webcam)`
 const WebcamTest = ({ setImageUrl }) => {
   const webcamRef = React.useRef(null);
 
-  const capture = useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImageUrl(imageSrc);
-  }, [webcamRef, setImageUrl]);
+  const [imgSrc, setImgSrc] = useState(null);
 
-  // 테스트용
-  const APITestWrapper = async () => {
-    try {
-      const response = await APITest();
-      console.log(response.status);
-      console.log(response.data);
-    } catch (err) {
-      console.log(err);
+  const [audioSrc, setAudioSrc] = useState(null); // 받은 audio 재생
+  // const [loading, setLoading] = useState(false);
+
+  // const capture = useCallback(() => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
+  //   setImageUrl(imageSrc);
+  // }, [webcamRef, setImageUrl]);
+
+  // 테스트용 -------------------------------------------------------------------
+  // const APITestWrapper = async () => {
+  //   try {
+  //     const response = await APITest();
+  //     console.log(response.status);
+  //     console.log(response.data);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+  // };
+
+  const ImageTestWrapper = async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImgSrc(imageSrc);
+
+    if (imgSrc) {
+      try {
+        // setLoading(true);
+        console.log('로딩중..');
+        const { response1, response2 } = await analyzeImage(imgSrc); // response2
+        console.log('analyzed', response1.data);
+        const audioBlob = response2.data;
+        const audioUrl = URL.createObjectURL(audioBlob);
+        setAudioSrc(audioUrl);
+      } catch (err) {
+        console.error('Error uploading file', err);
+      } finally {
+        // setLoading(false);
+      }
     }
   };
 
+  useEffect(() => {
+    if (audioSrc) {
+      const audio = new Audio(audioSrc);
+      audio.play();
+    }
+  }, [audioSrc]);
+  // ---------------------------------------------------------------------------
+
   return (
     <WebcamWrapper>
-      <CaptureButtonWithBackground capture={APITestWrapper} />
+      <CaptureButtonWithBackground capture={ImageTestWrapper} />
       <StyledWebcam
         width="390px"
         height="797px"

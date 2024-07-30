@@ -13,14 +13,14 @@ const CaptureButtonWrapper = styled.button`
 `;
 const CaptureButtonPurpleCircle = styled.div`
   position: absolute;
-  top: ${({ isClicked }) => (isClicked ? '5px' : '0px')};
+  top: ${({ isclicked }) => (isclicked ? '5px' : '0px')};
   left: 7px;
   right: 7px;
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  background: ${({ theme, isClicked }) =>
-    isClicked ? theme.colors.PURPLE[900] : theme.colors.PURPLE[600]};
+  background: ${({ theme, isclicked }) =>
+    isclicked ? theme.colors.PURPLE[900] : theme.colors.PURPLE[600]};
   z-index: 3;
 `;
 const CaptureButtonWhiteCircle = styled.div`
@@ -36,21 +36,21 @@ const CaptureButtonWhiteCircle = styled.div`
 `;
 const CaptureButtonImg = styled.img`
   position: absolute;
-  top: ${({ isClicked }) => (isClicked ? '19px' : '14px')};
+  top: ${({ isclicked }) => (isclicked ? '19px' : '14px')};
   left: 21px;
   right: 21px;
-  opacity: ${({ isClicked }) => (isClicked ? 0.6 : 1)};
+  opacity: ${({ isclicked }) => (isclicked ? 0.6 : 1)};
   z-index: 4;
 `;
 const CaptureButton = ({ onClick }) => {
-  const [isClicked, setIsClicked] = useState(false);
+  const [isclicked, setisclicked] = useState(false);
 
   const handleMouseDown = () => {
-    setIsClicked(true);
+    setisclicked(true);
   };
 
   const handleMouseUp = () => {
-    setIsClicked(false);
+    setisclicked(false);
   };
 
   return (
@@ -61,10 +61,10 @@ const CaptureButton = ({ onClick }) => {
       onTouchEnd={handleMouseUp}
       onClick={onClick}
     >
-      <CaptureButtonPurpleCircle isClicked={isClicked} />
+      <CaptureButtonPurpleCircle isclicked={isclicked} />
       <CaptureButtonWhiteCircle />
       <CaptureButtonImg
-        isClicked={isClicked}
+        isclicked={isclicked}
         src="/images/captureButtonImg.png"
         alt="Capture button"
       />
@@ -74,6 +74,8 @@ const CaptureButton = ({ onClick }) => {
 
 const CaptureButtonWithText = styled.div`
   display: flex;
+  position:
+  top: 22px;
   width: 124px;
   flex-direction: column;
   align-items: center;

@@ -18,20 +18,29 @@ const QuestionHeaderBackground = styled.div`
   flex-direction: row;
 `;
 
-const QuestionHeaderBackButton = styled(BackButton)`
+const QuestionHeaderBackButtonWrapper = styled.div`
   position: absolute;
   left: 24px;
-  top: 11px;
-  bottom: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+`;
+
+const QuestionHeaderText = styled(StyledTypography)`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const QuestionHeader = ({ question }) => {
   return (
     <QuestionHeaderBackground>
-      <QuestionHeaderBackButton />
-      <StyledTypography type="20SB" ta="center" color="WHITE">
+      <QuestionHeaderBackButtonWrapper>
+        <BackButton />
+      </QuestionHeaderBackButtonWrapper>
+      <QuestionHeaderText type="20SB" ta="center" color="WHITE">
         {question}
-      </StyledTypography>
+      </QuestionHeaderText>
     </QuestionHeaderBackground>
   );
 };
