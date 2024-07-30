@@ -22,9 +22,9 @@ export const analyzeAudio = (audioBlob) => {
       // 두 번째 요청: 텍스트 설명에 대한 오디오 파일을 요청
       return axiosInstance
         .get('/get_audio_data', {
-          headers: {
-            'Content-Type': 'multipart/form-data',
-          },
+          // headers: {
+          //   'Content-Type': 'multipart/form-data',
+          // },
           responseType: 'blob', // 응답을 Blob으로 받기
         })
         .then((response2) => {

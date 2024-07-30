@@ -4,6 +4,8 @@ import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
 
 import axiosInstance from '../../services/axiosInstance.js';
 
+import APIBase from '../../services/APIBase.js';
+
 const VoiceRecorder = ({ setAudioSrc }) => {
   const [audioRecorder, setAudioRecorder] = useState(null);
 
@@ -37,13 +39,10 @@ const VoiceRecorder = ({ setAudioSrc }) => {
         const formData = new FormData();
         formData.append('file', audioBlob, 'example.wav');
 
-        fetch(
-          'https://test.loca.lt/analyze_voice_and_return_response_and_audio',
-          {
-            method: 'POST',
-            body: formData,
-          }
-        )
+        fetch(APIBase + '/analyze_voice_and_return_response_and_audio', {
+          method: 'POST',
+          body: formData,
+        })
           .then((response1) => {
             console.log('2번째 요청');
             return axiosInstance
