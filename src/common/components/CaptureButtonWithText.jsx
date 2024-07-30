@@ -42,7 +42,7 @@ const CaptureButtonImg = styled.img`
   opacity: ${({ isClicked }) => (isClicked ? 0.6 : 1)};
   z-index: 4;
 `;
-const CaptureButton = ({ capture }) => {
+const CaptureButton = ({ onClick }) => {
   const [isClicked, setIsClicked] = useState(false);
 
   const handleMouseDown = () => {
@@ -51,7 +51,6 @@ const CaptureButton = ({ capture }) => {
 
   const handleMouseUp = () => {
     setIsClicked(false);
-    capture();
   };
 
   return (
@@ -60,6 +59,7 @@ const CaptureButton = ({ capture }) => {
       onMouseUp={handleMouseUp}
       onTouchStart={handleMouseDown}
       onTouchEnd={handleMouseUp}
+      onClick={onClick}
     >
       <CaptureButtonPurpleCircle isClicked={isClicked} />
       <CaptureButtonWhiteCircle />
@@ -103,7 +103,7 @@ const CaptureButtonWithBackground = ({ capture }) => {
   return (
     <CaptureButtonBackground>
       <CaptureButtonWithText>
-        <CaptureButton capture={capture} />
+        <CaptureButton onClick={capture} />
         <CaptureButtonText type="24B" color="WHITE">
           사진 찍기
         </CaptureButtonText>

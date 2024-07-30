@@ -12,6 +12,7 @@ const StyledTypography = ({
   type,
   color = 'BLACK',
   ff = 'PRETENDARD',
+  ta = 'left',
   children = null,
   ...rest
 }) => {
@@ -92,7 +93,16 @@ const StyledTypography = ({
   }
 
   return (
-    <Typography color={color} ff={ff} fs={fs} fw={fw} lh={lh} ls={ls} {...rest}>
+    <Typography
+      color={color}
+      ff={ff}
+      fs={fs}
+      fw={fw}
+      lh={lh}
+      ls={ls}
+      ta={ta}
+      {...rest}
+    >
       {children}
     </Typography>
   );

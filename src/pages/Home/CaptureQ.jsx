@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import WebcamTest from '../../common/components/WebcamComp';
+import QuestionHeader from '../../common/components/QuestionHeader';
 
-const Home = () => {
+const CaptureQ = () => {
   const [imageUrl, setImageUrl] = useState(null);
 
   useEffect(() => {
@@ -11,9 +12,10 @@ const Home = () => {
 
   return (
     <div>
+      <QuestionHeader question="모야Q 질문하기" />
       <WebcamTest setImageUrl={setImageUrl} />
     </div>
   );
 };
 
-export default Home;
+export default CaptureQ;

@@ -5,7 +5,7 @@ import React from 'react';
 import GlobalFrame from './common/components/GlobalFrame';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
-import Home from './pages/Home/Home';
+import CaptureQ from './pages/Home/CaptureQ';
 
 function App() {
   return (
@@ -13,8 +13,8 @@ function App() {
       <GlobalFrame>
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<CaptureQ />} />
+            <Route path="/home" element={<CaptureQ />} />
           </Routes>
         </BrowserRouter>
       </GlobalFrame>

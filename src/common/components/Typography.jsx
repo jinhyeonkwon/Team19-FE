@@ -24,6 +24,7 @@ const weightParsing = (weight) => {
 4. fw는 숫자로 넘겨 주세요. 
 5. lh는 % 단위의 숫자로 넘겨 주세요. 
 6. ls는 px 단위의 숫자로 넘겨 주세요. 
+7. ta는 "center"와 같이 넘겨 주세요.
 */
 
 const TypographyInner = styled.div`
@@ -33,6 +34,7 @@ const TypographyInner = styled.div`
   font-weight: ${({ fw }) => (fw ? weightParsing(fw) : 'inherit')};
   line-height: ${({ lh }) => (lh ? `${lh}%` : 'inherit')};
   letter-spacing: ${({ ls }) => (ls ? `${ls}px` : 'inherit')};
+  text-align: ${({ ta }) => (ta ? ta : 'inherit')};
 `;
 
 const Typography = ({ children = null, ...rest }) => (
