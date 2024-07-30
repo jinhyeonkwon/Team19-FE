@@ -42,31 +42,31 @@ const WebcamComp = ({ setImageUrl, setIsLoading }) => {
   //   }
   // };
 
-  // const ImageTestWrapper = async () => {
-  //   const imageSrc = webcamRef.current.getScreenshot();
-  //   setImgSrc(imageSrc);
+  const imageTestWrapper = async () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImgSrc(imageSrc);
 
-  //   if (imgSrc) {
-  //     try {
-  //       // setLoading(true);
-  //       console.log('로딩중..');
-  //       const { response1, response2 } = await analyzeImage(imgSrc); // response2
-  //       console.log('analyzed', response1.data);
-  //       const audioBlob = response2.data;
-  //       const audioUrl = URL.createObjectURL(audioBlob);
-  //       setAudioSrc(audioUrl);
-  //     } catch (err) {
-  //       console.error('Error uploading file', err);
-  //     } finally {
-  //       // setLoading(false);
-  //     }
-  //   }
-  // };
+    if (imgSrc) {
+      try {
+        setIsLoading(true);
+        console.log('로딩중..');
+        const { response1, response2 } = await analyzeImage(imgSrc); // response2
+        console.log('analyzed', response1.data);
+        const audioBlob = response2.data;
+        const audioUrl = URL.createObjectURL(audioBlob);
+        setAudioSrc(audioUrl);
+      } catch (err) {
+        console.error('Error uploading file', err);
+      } finally {
+        setIsLoading(false);
+      }
+    }
+  };
 
   const onButtonClick = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     setImageUrl(imageSrc);
-    setIsLoading(true);
+    imageTestWrapper();
   };
 
   useEffect(() => {
