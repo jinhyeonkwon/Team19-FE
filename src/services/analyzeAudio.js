@@ -8,11 +8,15 @@ export const analyzeAudio = (audioBlob) => {
 
   // 첫 번째 요청: 오디오 파일을 서버로 보내서 텍스트 설명을 받음
   return axiosInstance
-    .post('/analyze_voice_and_return_response_and_audio', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    })
+    .post(
+      '/analyze_voice_and_return_response_and_audio',
+      formData
+      // {
+      // headers: {
+      //   'Content-Type': 'multipart/form-data',
+      // },
+      // }
+    )
     .then((response1) => {
       console.log('2번째 요청');
       // 두 번째 요청: 텍스트 설명에 대한 오디오 파일을 요청
