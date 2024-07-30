@@ -22,7 +22,7 @@ const RoundedBox = styled.div`
 `;
 
 const Title = styled(StyledTypography)`
-  color: var(--Purple-100, #f5eafa);
+  color: ${({ theme }) => theme.colors.PURPLE[100]};
   align-self: stretch;
   color: var(--Gray-0W, #fff);
   font-family: Pretendard;
@@ -31,18 +31,21 @@ const Title = styled(StyledTypography)`
   font-weight: 700;
   line-height: 150%; /* 21px */
   letter-spacing: -0.28px;
+  margin-left: 35px;
+  margin-right: 35px;
 `;
 
 const Contents = styled(StyledTypography)`
   align-self: stretch;
-  color: var(--Gray-0W, #fff);
-  text-align: center;
+  color: ${({ theme }) => theme.colors.WHITE};
   font-family: Pretendard;
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
   line-height: 150%; /* 36px */
   letter-spacing: -0.48px;
+  margin-left: 35px;
+  margin-right: 35px;
 `;
 
 const InfoBoxWrapper = styled.div`
@@ -57,8 +60,12 @@ export const InfoBox = ({ title, contents }) => (
   <InfoBoxWrapper>
     <img src="/images/moya_in_infoBox.svg" alt="moya character in info box" />
     <RoundedBox>
-      <Title type="14B">{title}</Title>
-      <Contents type="24B">{contents}</Contents>
+      <Title type="14B" ta="left">
+        {title}
+      </Title>
+      <Contents type="24B" ta="start">
+        {contents}
+      </Contents>
     </RoundedBox>
   </InfoBoxWrapper>
 );

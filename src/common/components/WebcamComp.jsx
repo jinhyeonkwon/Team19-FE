@@ -18,7 +18,7 @@ const StyledWebcam = styled(Webcam)`
   object-fit: cover;
 `;
 
-const WebcamTest = ({ setImageUrl }) => {
+const WebcamComp = ({ setImageUrl, setIsLoading }) => {
   const webcamRef = React.useRef(null);
 
   const [imgSrc, setImgSrc] = useState(null);
@@ -42,25 +42,31 @@ const WebcamTest = ({ setImageUrl }) => {
   //   }
   // };
 
-  const ImageTestWrapper = async () => {
-    const imageSrc = webcamRef.current.getScreenshot();
-    setImgSrc(imageSrc);
+  // const ImageTestWrapper = async () => {
+  //   const imageSrc = webcamRef.current.getScreenshot();
+  //   setImgSrc(imageSrc);
 
-    if (imgSrc) {
-      try {
-        // setLoading(true);
-        console.log('로딩중..');
-        const { response1, response2 } = await analyzeImage(imgSrc); // response2
-        console.log('analyzed', response1.data);
-        const audioBlob = response2.data;
-        const audioUrl = URL.createObjectURL(audioBlob);
-        setAudioSrc(audioUrl);
-      } catch (err) {
-        console.error('Error uploading file', err);
-      } finally {
-        // setLoading(false);
-      }
-    }
+  //   if (imgSrc) {
+  //     try {
+  //       // setLoading(true);
+  //       console.log('로딩중..');
+  //       const { response1, response2 } = await analyzeImage(imgSrc); // response2
+  //       console.log('analyzed', response1.data);
+  //       const audioBlob = response2.data;
+  //       const audioUrl = URL.createObjectURL(audioBlob);
+  //       setAudioSrc(audioUrl);
+  //     } catch (err) {
+  //       console.error('Error uploading file', err);
+  //     } finally {
+  //       // setLoading(false);
+  //     }
+  //   }
+  // };
+
+  const onButtonClick = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    setImageUrl(imageSrc);
+    setIsLoading(true);
   };
 
   useEffect(() => {
@@ -73,7 +79,7 @@ const WebcamTest = ({ setImageUrl }) => {
 
   return (
     <WebcamWrapper>
-      <CaptureButtonWithBackground capture={ImageTestWrapper} />
+      <CaptureButtonWithBackground onClick={onButtonClick} />
       <StyledWebcam
         width="390px"
         height="797px"
@@ -86,4 +92,4 @@ const WebcamTest = ({ setImageUrl }) => {
   );
 };
 
-export default WebcamTest;
+export default WebcamComp;

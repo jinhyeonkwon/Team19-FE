@@ -40,6 +40,12 @@ const StyledTypography = ({
       lh = 150;
       ls = -0.4;
       break;
+    case '20R':
+      fs = 20;
+      fw = 'REGULAR';
+      lh = 150;
+      ls = -0.4;
+      break;
     case '16B':
       fs = 16;
       fw = 'BOLD';

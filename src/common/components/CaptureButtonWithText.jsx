@@ -101,11 +101,11 @@ const CaptureButtonBackground = styled.div`
   flex-direction: column;
 `;
 
-const CaptureButtonWithBackground = ({ capture }) => {
+const CaptureButtonWithBackground = ({ onClick }) => {
   return (
     <CaptureButtonBackground>
       <CaptureButtonWithText>
-        <CaptureButton onClick={capture} />
+        <CaptureButton onClick={onClick} />
         <CaptureButtonText type="24B" color="WHITE">
           사진 찍기
         </CaptureButtonText>
