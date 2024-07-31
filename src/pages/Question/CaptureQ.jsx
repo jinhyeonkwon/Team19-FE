@@ -183,7 +183,9 @@ const CaptureQ = () => {
   };
 
   const questionBackButtonClick = useCallback(async () => {
+    setIsLoading(true);
     const status = await finishMessages();
+    setIsLoading(false);
     if (status === 200) {
       setStep(0);
       setImageUrl(null);
@@ -229,6 +231,12 @@ const CaptureQ = () => {
         </div>
       ) : (
         <ChattingStepWrapper>
+          {isLoading && (
+            <LoadingModal
+              first="대화 마무리 중..."
+              second="모야가 대화 내용을 정리하고 있어!"
+            />
+          )}
           <ChattingHeaderWrapper>
             <ChattingHeader
               text={chattingTitle}
