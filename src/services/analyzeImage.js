@@ -1,6 +1,6 @@
 import axiosInstance from './axiosInstance';
 
-export const analyzeImage = (imgSrc) => {
+export const analyzeImage = ({ imgSrc, addChat }) => {
   return fetch(imgSrc)
     .then((response) => response.blob())
     .then((blob) => {
@@ -19,17 +19,18 @@ export const analyzeImage = (imgSrc) => {
       );
     })
     .then((response1) => {
-      console.log('(첫 통신) 2번째 요청');
+      console.log('2번째 요청');
+      addChat({ text: response1.data.response_data, isMine: false });
       return axiosInstance
-        .post('/get_audio_data', {
-          // 원래 get 이었음
+        .get('/get_audio_data', {
           // headers: {
           //   'Content-Type': 'multipart/form-data',
           // },
           responseType: 'blob', // 응답을 Blob으로 받기
         })
         .then((response2) => {
-          console.log('(첫 통신) 2번째 요청 끝');
+          console.log('상대방의 답변');
+          console.log(response2.data);
           return { response1: response1, response2: response2 };
         });
     })

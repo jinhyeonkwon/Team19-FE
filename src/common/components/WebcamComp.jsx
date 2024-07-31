@@ -18,7 +18,14 @@ const StyledWebcam = styled(Webcam)`
   object-fit: cover;
 `;
 
-const WebcamComp = ({ setImageUrl, setIsLoading, setStep, setAudioSrc }) => {
+const WebcamComp = ({
+  setImageUrl,
+  setIsLoading,
+  setStep,
+  setAudioSrc,
+  setChattingTitle,
+  addChat,
+}) => {
   const webcamRef = React.useRef(null);
 
   const [imgSrc, setImgSrc] = useState(null);
@@ -49,17 +56,19 @@ const WebcamComp = ({ setImageUrl, setIsLoading, setStep, setAudioSrc }) => {
       try {
         setIsLoading(true);
         console.log('로딩중..');
-        const { response1, response2 } = await analyzeImage(imgSrc); // response2
+        const { response1, response2 } = await analyzeImage({
+          imgSrc: imgSrc,
+          addChat: addChat,
+        }); // response2
         console.log('analyzed', response1.data);
         const audioBlob = response2.data;
-        console.log(typeof audioBlob);
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioSrc(audioUrl);
+        setIsLoading(false);
+        setChattingTitle(response1.data.response_data_summary);
+        setStep((step) => step + 1);
       } catch (err) {
         console.error('Error uploading file', err);
-      } finally {
-        setIsLoading(false);
-        setStep((step) => step + 1);
       }
     }
   };

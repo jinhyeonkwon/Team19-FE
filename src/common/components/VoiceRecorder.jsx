@@ -6,7 +6,7 @@ import axiosInstance from '../../services/axiosInstance.js';
 
 import APIBase from '../../services/APIBase.js';
 
-const VoiceRecorder = ({ setAudioSrc }) => {
+const VoiceRecorder = ({ setAudioSrc, addChat }) => {
   const [audioRecorder, setAudioRecorder] = useState(null);
 
   const start = () => {
@@ -34,38 +34,40 @@ const VoiceRecorder = ({ setAudioSrc }) => {
     if (audioRecorder) {
       audioRecorder.stopRecording(() => {
         const audioBlob = audioRecorder.getBlob();
-        console.log('audioBlob 구했음');
+
         // Blob을 서버로 전송
         const formData = new FormData();
         formData.append('file', audioBlob, 'example.wav');
-        console.log('formData에 넣었음');
 
         fetch(APIBase + '/analyze_voice_and_return_response_and_audio', {
           method: 'POST',
           body: formData,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-          },
         })
-          .then((response1) => {
-            console.log('2번째 요청 시작');
+          .then((response1_raw) => {
+            return response1_raw.json();
+          })
+          .then((response1_data) => {
+            console.log('2번째 요청');
+            console.log('response1:');
+            console.log(response1_data);
+            addChat({ text: response1_data.user_input_data, isMine: true });
             return axiosInstance
-              .post('/get_audio_data', {
-                // 원래 get 이었음
+              .get('/get_audio_data', {
                 // headers: {
                 //   'Content-Type': 'multipart/form-data',
                 // },
                 responseType: 'blob', // 응답을 Blob으로 받기
               })
               .then((response2) => {
-                console.log('2번째 요청 끝');
-                return { response1: response1, response2: response2 };
+                addChat({ text: response1_data.response_data, isMine: false });
+                return { response2: response2 };
               });
           })
-          .then(({ response1, response2 }) => {
-            console.log('Success:', response2.data);
+          .then(({ response2 }) => {
+            console.log('Success:', response2);
             const responseAudioBlob = response2.data;
             const responseAudioUrl = URL.createObjectURL(responseAudioBlob);
+
             setAudioSrc(responseAudioUrl);
           })
           .catch((error) => {

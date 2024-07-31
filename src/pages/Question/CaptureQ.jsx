@@ -1,6 +1,8 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
 
+import Queue from 'queue';
+
 import WebcamComp from '../../common/components/WebcamComp';
 import QuestionHeader from '../../common/components/QuestionHeader';
 import { InfoBox } from '../../common/components/FloatingInfobox';
@@ -81,6 +83,8 @@ const dummyChat = [
   { id: 1, text: '오호 그렇군요!', isMine: true },
 ];
 
+const chatQueue = [];
+
 const ChatList = styled.div`
   width: 352px;
   padding: 0px 24px;
@@ -108,6 +112,19 @@ const CaptureQ = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [chattingTitle, setChattingTitle] = useState('모야Q 채팅하기');
+
+  const [toRender, setToRender] = useState(false);
+
+  const addChat = ({ text, isMine }) => {
+    // 응답 받으면 수행할 것
+    console.log('채팅 메시지 추가');
+    chatQueue.push({
+      text: text,
+      isMine: isMine,
+    });
+    console.log(chatQueue);
+    setToRender(!toRender);
+  };
 
   useEffect(() => {
     //console.log(imageUrl);
@@ -160,6 +177,8 @@ const CaptureQ = () => {
               setIsLoading={setIsLoading}
               setStep={setStep}
               setAudioSrc={setAudioSrc}
+              setChattingTitle={setChattingTitle}
+              addChat={addChat}
             />
           </FunctionWrapper>
         </div>
@@ -172,8 +191,8 @@ const CaptureQ = () => {
             />
           </ChattingHeaderWrapper>
           <ChattingArea>
-            <RealChatList chatList={dummyChat} />
-            <VoiceRecorderWrapper setAudioSrc={setAudioSrc} />
+            <RealChatList chatList={chatQueue} />
+            <VoiceRecorderWrapper setAudioSrc={setAudioSrc} addChat={addChat} />
           </ChattingArea>
           <CapturedImageWrapper>
             <CapturedImage src={imageUrl} alt="captured image" />

@@ -21,8 +21,7 @@ export const analyzeAudio = (audioBlob) => {
       console.log('2번째 요청');
       // 두 번째 요청: 텍스트 설명에 대한 오디오 파일을 요청
       return axiosInstance
-        .post('/get_audio_data', {
-          // 원래 get이었음
+        .get('/get_audio_data', {
           // headers: {
           //   'Content-Type': 'multipart/form-data',
           // },
@@ -77,23 +76,4 @@ export const audioTestAndSave = (blob) => {
   //   .catch((err) => {
   //     throw err;
   //   });
-};
-
-export const audioTest2 = (audioBlob) => {
-  const audioFile = new File([audioBlob], 'audio.mp3', { type: 'audio/mp3' });
-  const formData = new FormData();
-  formData.append('file', audioFile);
-
-  // 첫 번째 요청: 오디오 파일을 서버로 보내서 텍스트 설명을 받음
-  return {
-    response2: axiosInstance.post(
-      '/voice_test_test',
-      formData
-      // {
-      // headers: {
-      //   'Content-Type': 'multipart/form-data',
-      // },
-      // }
-    ),
-  };
 };
