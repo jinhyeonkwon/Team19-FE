@@ -2,6 +2,7 @@ const fonts = {
   FAMILY: {
     PRETENDARD: 'Pretendard Variable',
     NEURIMBOGOTHIC: 'neurimboGothicRegular',
+    CAFE24: 'Cafe24Ssurround',
   },
   WEIGHT: {
     BOLD: 700,

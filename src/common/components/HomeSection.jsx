@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import StyledTypography from './StyledTypography';
 
-const HomeContentWrapper = styled.div`
+const HomeSectionWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,11 +21,11 @@ const HomeTexts = styled.div`
 
 const ChildrenWrapper = styled.div``;
 
-export const HomeContent = ({ title, subtitle, children }) => {
+export const HomeSection = ({ title, subtitle, children }) => {
   return (
-    <HomeContentWrapper>
+    <HomeSectionWrapper>
       <HomeTexts>
-        <StyledTypography type="24SB" color="BLACK">
+        <StyledTypography type="24SB" color="BLACK" ff="CAFE24">
           {title}
         </StyledTypography>
         <StyledTypography type="16R" color="BLACK">
@@ -33,6 +33,6 @@ export const HomeContent = ({ title, subtitle, children }) => {
         </StyledTypography>
       </HomeTexts>
       <ChildrenWrapper>{children}</ChildrenWrapper>
-    </HomeContentWrapper>
+    </HomeSectionWrapper>
   );
 };

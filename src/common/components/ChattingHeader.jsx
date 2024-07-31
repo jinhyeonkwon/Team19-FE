@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import StyledTypography from './StyledTypography';
 import BackButton from './BackButton';
+import { Link } from 'react-router-dom';
 
 const ChattingHeaderBackground = styled.div`
   position: absolute;
@@ -31,12 +32,14 @@ const ChattingHeaderText = styled(StyledTypography)`
   transform: translate(-50%, -50%);
 `;
 
-const ChattingHeader = ({ text, backButtonOnClick }) => {
+const ChattingHeader = ({ text, backButtonOnClick, backButtonLinkTo }) => {
   return (
     <ChattingHeaderBackground>
-      <ChattingHeaderBackButtonWrapper>
-        <BackButton onClick={backButtonOnClick} />
-      </ChattingHeaderBackButtonWrapper>
+      <Link to={backButtonLinkTo}>
+        <ChattingHeaderBackButtonWrapper>
+          <BackButton onClick={backButtonOnClick} />
+        </ChattingHeaderBackButtonWrapper>
+      </Link>
       <ChattingHeaderText type="20B" ta="center" color="WHITE">
         {text}
       </ChattingHeaderText>

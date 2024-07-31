@@ -7,6 +7,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import CaptureQ from './pages/Question/CaptureQ';
 import { Home } from './pages/Home/Home';
+import { Dict } from './pages/Dict/Dict';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/question" element={<CaptureQ />} />
+            <Route path="/dictionary" element={<Dict />} />
           </Routes>
         </BrowserRouter>
       </GlobalFrame>
