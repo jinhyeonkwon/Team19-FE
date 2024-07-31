@@ -9,7 +9,7 @@ const GlobalFrameInner = styled.div`
   display: flex;
   overflow: hidden;
   position: fixed;
-  top: 16px;
+  top: 8px;
   left: calc(50% - 195px);
   right: calc(50% - 195px);
 `;
