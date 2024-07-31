@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import styled from 'styled-components';
 import ChattingHeader from '../../common/components/ChattingHeader';
@@ -7,6 +7,8 @@ import StyledTypography from '../../common/components/StyledTypography';
 import { SetDifficulty } from '../../common/components/SetDifficulty';
 
 import DiffContext from '../../DiffContext';
+import { myData } from '../../services/myData';
+import APIBase from '../../services/APIBase';
 
 const Container = styled.div`
   display: flex;
@@ -166,6 +168,10 @@ const ImgWrapper = styled.div`
   height: 100%;
 `;
 
+const StyledImg = styled.img`
+  max-width: 278px;
+`;
+
 const SmallTagWrapper = styled.div`
   display: flex;
   height: 26px;
@@ -257,19 +263,6 @@ const TodayQuestionWrapper = styled.div`
   gap: 4px;
 `;
 
-const TodayQuestion = ({ question }) => {
-  return (
-    <TodayQuestionWrapper>
-      <StyledTypography color="PURPLE 600" type="16SB" ta="left">
-        오늘의 질문
-      </StyledTypography>
-      <StyledTypography color="GRAY 800" type="20SB" ta="left">
-        {question}
-      </StyledTypography>
-    </TodayQuestionWrapper>
-  );
-};
-
 const AlertWhiteBox = styled(WhiteBox)`
   padding: 24px 32px;
 `;
@@ -293,6 +286,34 @@ const AlertText = () => {
 export const MyPage = () => {
   const { diff, setDiff } = useContext(DiffContext);
   const [toggle, setToggle] = useState(false);
+  const [data, setData] = useState(null);
+
+  const fetchData = async () => {
+    try {
+      const response = await myData();
+      setData(response);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const TodayQuestion = ({ question }) => {
+    return (
+      <TodayQuestionWrapper>
+        <StyledTypography color="PURPLE 600" type="16SB" ta="left">
+          오늘의 질문
+        </StyledTypography>
+        <StyledTypography color="GRAY 800" type="20SB" ta="left">
+          {data ? data.recommend_question : '로딩 중'}
+        </StyledTypography>
+      </TodayQuestionWrapper>
+    );
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
   return (
     <Container>
       <HeaderWrapper>
@@ -330,13 +351,22 @@ export const MyPage = () => {
             />
             <WhiteBox padding={32}>
               <ImgWrapper>
-                <img src="/images/dummy_graph.svg" alt="report" />
+                {data ? (
+                  <StyledImg src={APIBase + data.plot_data_path} alt="report" />
+                ) : (
+                  <div>Loading...</div>
+                )}
               </ImgWrapper>
             </WhiteBox>
             <WhiteBox padding={32}>
               <TagsInner>
-                <TagsTitle bigTag={`${dummyBigTag} 태그`} cnt={dummyCnt} />
-                <SmallTags smallTagList={dummySmallTags} />
+                <TagsTitle
+                  bigTag={data ? `${data.tag[0]} 태그` : '로딩 중'}
+                  cnt={data ? data.count[0] : 0}
+                />
+                <SmallTags
+                  smallTagList={data ? data.all_small_tags : ['로딩 중']}
+                />
               </TagsInner>
             </WhiteBox>
           </OneSection>
