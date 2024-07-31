@@ -64,10 +64,11 @@ const VoiceRecorder = ({ setAudioSrc, addChat }) => {
           const response3_data = response3.data;
 
           console.log('response3_data:', response3_data);
+          const path = response3_data.generated_image_path;
           addChat({
             text: response1_data.response_data,
             isMine: false,
-            imagePath: APIBase + response3_data.generated_image_path || null,
+            imagePath: path !== 'nono' ? APIBase + path : null,
           });
 
           console.log('Success:', response2);
