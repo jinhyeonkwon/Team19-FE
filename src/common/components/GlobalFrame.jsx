@@ -9,10 +9,11 @@ const GlobalFrameInner = styled.div`
   display: flex;
   overflow: hidden;
   position: fixed;
-  top: 0;
+  top: 16px;
   left: calc(50% - 195px);
   right: calc(50% - 195px);
 `;
+// top : 기종에 adjust하기 위함
 
 const GlobalRelativeFrame = styled.div`
   width: 100%;
