@@ -15,7 +15,7 @@ import { ChattingMessage } from '../../common/components/ChattingMessage';
 import { finishMessages } from '../../services/finishMessages';
 
 import APIBase from '../../services/APIBase';
-import VoiceRecorder from '../../common/components/VoiceRecorder';
+import QuestionOrSendButtonWithBackground from '../../common/components/QuestionOrEnd';
 
 const InfoBoxWrapper = styled.div`
   position: absolute;
@@ -69,7 +69,9 @@ const ChattingHeaderWrapper = styled.div`
   flex-shrink: 0;
 `;
 
-const VoiceRecorderWrapper = styled(VoiceRecorder)`
+const QuestionOrSendButtonWithBackgroundWrapper = styled(
+  QuestionOrSendButtonWithBackground
+)`
   z-index: 10;
 `;
 
@@ -236,17 +238,16 @@ const CaptureQ = () => {
           <ScrollableContainer>
             <ChattingArea>
               <RealChatList chatList={chatQueue} />
-              <VoiceRecorderWrapper
-                setAudioSrc={setAudioSrc}
-                addChat={addChat}
-              />
             </ChattingArea>
           </ScrollableContainer>
           <CapturedImageWrapper>
             <CapturedImage src={imageUrl} alt="captured image" />
           </CapturedImageWrapper>
           <QuestionButtonWrapper>
-            <QuestionButtonWithBackground />
+            <QuestionOrSendButtonWithBackgroundWrapper
+              setAudioSrc={setAudioSrc}
+              addChat={addChat}
+            />
           </QuestionButtonWrapper>
         </ChattingStepWrapper>
       )}
