@@ -31,11 +31,11 @@ const ChattingHeaderText = styled(StyledTypography)`
   transform: translate(-50%, -50%);
 `;
 
-const ChattingHeader = ({ text }) => {
+const ChattingHeader = ({ text, backButtonOnClick }) => {
   return (
     <ChattingHeaderBackground>
       <ChattingHeaderBackButtonWrapper>
-        <BackButton />
+        <BackButton onClick={backButtonOnClick} />
       </ChattingHeaderBackButtonWrapper>
       <ChattingHeaderText type="20B" ta="center" color="WHITE">
         {text}

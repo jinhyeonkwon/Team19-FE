@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
 
 import WebcamComp from '../../common/components/WebcamComp';
@@ -12,6 +12,7 @@ import ChattingHeader from '../../common/components/ChattingHeader';
 import { ChattingMessage } from '../../common/components/ChattingMessage';
 
 import { audioTestAndSave } from '../../services/analyzeAudio';
+import { finishMessages } from '../../services/finishMessages';
 
 import APIBase from '../../services/APIBase';
 import VoiceRecorder from '../../common/components/VoiceRecorder';
@@ -110,7 +111,7 @@ const CaptureQ = () => {
   const [chattingTitle, setChattingTitle] = useState('모야Q 채팅하기');
 
   useEffect(() => {
-    console.log(imageUrl);
+    //console.log(imageUrl);
   }, [imageUrl]);
 
   useEffect(() => {
@@ -119,6 +120,17 @@ const CaptureQ = () => {
       audio.play();
     }
   }, [audioSrc]);
+
+  const questionBackButtonClick = useCallback(async () => {
+    const status = await finishMessages();
+    if (status === 200) {
+      setStep(0);
+      setImageUrl(null);
+      setAudioSrc(null);
+      setIsLoading(false);
+      setChattingTitle('모야Q 채팅하기');
+    }
+  }, [setStep, setImageUrl, setAudioSrc, setIsLoading, setChattingTitle]);
 
   return (
     <div>
@@ -154,7 +166,10 @@ const CaptureQ = () => {
       ) : (
         <ChattingStepWrapper>
           <ChattingHeaderWrapper>
-            <ChattingHeader text={chattingTitle} />
+            <ChattingHeader
+              text={chattingTitle}
+              backButtonOnClick={questionBackButtonClick}
+            />
           </ChattingHeaderWrapper>
           <ChattingArea>
             <RealChatList chatList={dummyChat} />

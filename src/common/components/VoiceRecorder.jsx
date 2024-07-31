@@ -34,17 +34,21 @@ const VoiceRecorder = ({ setAudioSrc }) => {
     if (audioRecorder) {
       audioRecorder.stopRecording(() => {
         const audioBlob = audioRecorder.getBlob();
-
+        console.log('audioBlob 구했음');
         // Blob을 서버로 전송
         const formData = new FormData();
         formData.append('file', audioBlob, 'example.wav');
+        console.log('formData에 넣었음');
 
         fetch(APIBase + '/analyze_voice_and_return_response_and_audio', {
           method: 'POST',
           body: formData,
+          headers: {
+            'Access-Control-Allow-Origin': '*',
+          },
         })
           .then((response1) => {
-            console.log('2번째 요청');
+            console.log('2번째 요청 시작');
             return axiosInstance
               .get('/get_audio_data', {
                 // headers: {
@@ -53,6 +57,7 @@ const VoiceRecorder = ({ setAudioSrc }) => {
                 responseType: 'blob', // 응답을 Blob으로 받기
               })
               .then((response2) => {
+                console.log('2번째 요청 끝');
                 return { response1: response1, response2: response2 };
               });
           })

@@ -19,7 +19,7 @@ export const analyzeImage = (imgSrc) => {
       );
     })
     .then((response1) => {
-      console.log('2번째 요청');
+      console.log('(첫 통신) 2번째 요청');
       return axiosInstance
         .get('/get_audio_data', {
           // headers: {
@@ -28,6 +28,7 @@ export const analyzeImage = (imgSrc) => {
           responseType: 'blob', // 응답을 Blob으로 받기
         })
         .then((response2) => {
+          console.log('(첫 통신) 2번째 요청 끝');
           return { response1: response1, response2: response2 };
         });
     })

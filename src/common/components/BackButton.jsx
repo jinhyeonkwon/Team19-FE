@@ -13,6 +13,7 @@ const BackButtonWrapper = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 0 3px var(--Purple-100, #f5eafa);
   background: var(--Purple-600S, #704fe6);
+  cursor: pointer;
 `;
 
 const BackButton = ({ onClick = () => {} }) => (

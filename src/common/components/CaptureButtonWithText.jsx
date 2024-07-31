@@ -56,9 +56,7 @@ const CaptureButton = ({ onClick }) => {
   return (
     <CaptureButtonWrapper
       onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
       onTouchStart={handleMouseDown}
-      onTouchEnd={handleMouseUp}
       onClick={onClick}
     >
       <CaptureButtonPurpleCircle isclicked={isclicked} />
