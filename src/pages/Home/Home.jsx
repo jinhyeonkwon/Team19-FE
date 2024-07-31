@@ -9,6 +9,8 @@ import APIBase from '../../services/APIBase';
 import { initModel } from '../../services/initModel';
 import { getAllData } from '../../services/getAllData';
 
+import DiffContext from '../../DiffContext';
+
 const HomeWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -112,9 +114,11 @@ const HorizontalScrollableContainerWithData = ({ dictObj }) => (
 export const Home = () => {
   const [dictData, setDictData] = useState(null);
 
+  const { diff } = React.useContext(DiffContext);
+
   useEffect(() => {
-    initModel();
-  }, []);
+    initModel(diff);
+  }, [diff]);
 
   const getDictData = useCallback(async () => {
     try {

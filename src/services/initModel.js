@@ -3,7 +3,7 @@ import axiosInstance from './axiosInstance';
 export const initModel = async (num) => {
   try {
     const response = await axiosInstance.get(
-      `/init_model/2`,
+      `/init_model/${num}`,
       {},
       {
         headers: {
