@@ -1,9 +1,6 @@
 import React, { useState, useEffect } from 'react';
-
 import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
-
 import axiosInstance from '../../services/axiosInstance.js';
-
 import APIBase from '../../services/APIBase.js';
 
 const VoiceRecorder = ({ setAudioSrc, addChat }) => {
@@ -30,49 +27,57 @@ const VoiceRecorder = ({ setAudioSrc, addChat }) => {
       });
   };
 
-  const recordStop = () => {
+  const recordStop = async () => {
     if (audioRecorder) {
-      audioRecorder.stopRecording(() => {
+      audioRecorder.stopRecording(async () => {
         const audioBlob = audioRecorder.getBlob();
 
         // Blob을 서버로 전송
         const formData = new FormData();
         formData.append('file', audioBlob, 'example.wav');
 
-        fetch(APIBase + '/analyze_voice_and_return_response_and_audio', {
-          method: 'POST',
-          body: formData,
-        })
-          .then((response1_raw) => {
-            return response1_raw.json();
-          })
-          .then((response1_data) => {
-            console.log('2번째 요청');
-            console.log('response1:');
-            console.log(response1_data);
-            addChat({ text: response1_data.user_input_data, isMine: true });
-            return axiosInstance
-              .get('/get_audio_data', {
-                // headers: {
-                //   'Content-Type': 'multipart/form-data',
-                // },
-                responseType: 'blob', // 응답을 Blob으로 받기
-              })
-              .then((response2) => {
-                addChat({ text: response1_data.response_data, isMine: false });
-                return { response2: response2 };
-              });
-          })
-          .then(({ response2 }) => {
-            console.log('Success:', response2);
-            const responseAudioBlob = response2.data;
-            const responseAudioUrl = URL.createObjectURL(responseAudioBlob);
+        try {
+          const response1_raw = await fetch(
+            APIBase + '/analyze_voice_and_return_response_and_audio',
+            {
+              method: 'POST',
+              body: formData,
+            }
+          );
+          const response1_data = await response1_raw.json();
+          console.log('response1:', response1_data);
 
-            setAudioSrc(responseAudioUrl);
-          })
-          .catch((error) => {
-            console.error('Error:', error);
+          addChat({ text: response1_data.user_input_data, isMine: true });
+
+          const response2 = await axiosInstance.get('/get_audio_data', {
+            responseType: 'blob',
           });
+
+          console.log('3번째 요청 시작!');
+          const response3 = await axiosInstance.get(
+            '/get_generated_image_data',
+            {
+              responseType: 'json',
+            }
+          );
+
+          const response3_data = response3.data;
+
+          console.log('response3_data:', response3_data);
+          addChat({
+            text: response1_data.response_data,
+            isMine: false,
+            imagePath: APIBase + response3_data.generated_image_path || null,
+          });
+
+          console.log('Success:', response2);
+          const responseAudioBlob = response2.data;
+          const responseAudioUrl = URL.createObjectURL(responseAudioBlob);
+
+          setAudioSrc(responseAudioUrl);
+        } catch (error) {
+          console.error('Error:', error);
+        }
       });
     }
   };

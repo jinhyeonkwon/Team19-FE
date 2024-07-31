@@ -95,8 +95,17 @@ const ChatList = styled.div`
 
 const RealChatList = ({ chatList }) => (
   <ChatList>
-    {chatList.map(({ id, text, isMine }) => (
-      <ChattingMessage key={id} text={text} isMine={isMine} />
+    {chatList.map(({ id, text, isMine, imagePath }) => (
+      <React.Fragment key={id}>
+        {imagePath ? (
+          <ChattingMessage
+            text={<img src={imagePath} alt="chat image" />}
+            isMine={isMine}
+          />
+        ) : (
+          <ChattingMessage text={text} isMine={isMine} />
+        )}
+      </React.Fragment>
     ))}
   </ChatList>
 );
@@ -115,10 +124,19 @@ const CaptureQ = () => {
 
   const [toRender, setToRender] = useState(false);
 
-  const addChat = ({ text, isMine }) => {
+  const addChat = ({ text, isMine, imagePath }) => {
     // 응답 받으면 수행할 것
     console.log('채팅 메시지 추가');
+    if (imagePath) {
+      chatQueue.push({
+        id: chatQueue.length,
+        text: '',
+        isMine: isMine,
+        imagePath: imagePath,
+      });
+    }
     chatQueue.push({
+      id: chatQueue.length,
       text: text,
       isMine: isMine,
     });
