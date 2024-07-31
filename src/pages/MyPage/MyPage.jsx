@@ -211,7 +211,7 @@ const dummyTodayQuestion = '가장 만들어보고 싶은 요리가 뭐야?';
 const SmallTagsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 7px;
+  gap: 7px 4px;
 `;
 
 const TagsTitleWrapper = styled.div`

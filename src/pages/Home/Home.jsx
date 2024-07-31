@@ -8,6 +8,7 @@ import { DictCard } from '../../common/components/DictCard';
 import APIBase from '../../services/APIBase';
 import { initModel } from '../../services/initModel';
 import { getAllData } from '../../services/getAllData';
+import { myData } from '../../services/myData';
 
 import DiffContext from '../../DiffContext';
 
@@ -116,6 +117,8 @@ export const Home = () => {
 
   const { diff } = React.useContext(DiffContext);
 
+  const [filterList, setFilterList] = useState(null);
+
   useEffect(() => {
     initModel(diff);
   }, [diff]);
@@ -135,9 +138,24 @@ export const Home = () => {
     }
   }, []);
 
+  const getFilterList = useCallback(async () => {
+    try {
+      const myyData = await myData();
+      console.log('my data 받음');
+      console.log(myyData);
+      setFilterList(myyData.tag);
+    } catch (err) {
+      console.log(err);
+    }
+  });
+
   useEffect(() => {
     getDictData();
-  }, [getDictData]);
+  }, []);
+
+  useEffect(() => {
+    getFilterList();
+  }, []);
 
   return (
     <HomeWrapper>
@@ -164,16 +182,30 @@ export const Home = () => {
             <div>Loading...</div>
           )}
         </HomeSection>
-        <HomeSection
-          title="최근에 한 질문 도감"
-          subtitle="테마 별로 내가 질문한 사진을 확인해 봐!"
-        >
-          {dictData ? (
-            <HorizontalScrollableContainerWithData dictObj={dictData} />
-          ) : (
-            <div>Loading...</div>
-          )}
-        </HomeSection>
+        {filterList && filterList.length > 0 ? (
+          filterList.map((tag) => {
+            const filteredData = {};
+
+            for (const key in dictData) {
+              if (
+                dictData[key].hasOwnProperty('big_tag') &&
+                dictData[key].big_tag.includes(tag)
+              ) {
+                filteredData[key] = dictData[key];
+              }
+            }
+            return (
+              <HomeSection
+                title={`${tag} 테마 질문 도감`}
+                subtitle={`${tag} 테마로 질문한 사진을 확인해 봐!`}
+              >
+                <HorizontalScrollableContainerWithData dictObj={filteredData} />
+              </HomeSection>
+            );
+          })
+        ) : (
+          <div>Loading...</div>
+        )}
       </ScrollableContainer>
     </HomeWrapper>
   );
