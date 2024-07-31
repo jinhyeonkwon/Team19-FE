@@ -53,7 +53,7 @@ const ChattingStepWrapper = styled.div`
 
 const ChattingArea = styled.div`
   flex: 1;
-  opacity: 0.8;
+  opacity: 1;
   z-index: 2;
   display: flex;
   flex-direction: column;

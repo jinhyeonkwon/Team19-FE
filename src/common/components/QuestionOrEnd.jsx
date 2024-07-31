@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
 import axiosInstance from '../../services/axiosInstance.js';
 import APIBase from '../../services/APIBase.js';
@@ -24,8 +24,14 @@ const QuestionButtonPurpleCircle = styled.div`
   width: 110px;
   height: 110px;
   border-radius: 50%;
-  background: ${({ theme, isclicked }) =>
-    isclicked ? theme.colors.YELLOW[600] : theme.colors.YELLOW[400]};
+  background: ${({ theme, isclicked, isRecording }) =>
+    isclicked
+      ? isRecording
+        ? theme.colors.YELLOW[800]
+        : theme.colors.YELLOW[600]
+      : isRecording
+      ? theme.colors.YELLOW[600]
+      : theme.colors.YELLOW[400]};
   z-index: 3;
 `;
 const QuestionButtonWhiteCircle = styled.div`
@@ -44,10 +50,10 @@ const QuestionButtonImg = styled.img`
   top: ${({ isclicked }) => (isclicked ? '19px' : '14px')};
   left: 21px;
   right: 21px;
-  opacity: ${({ isclicked }) => (isclicked ? 0.6 : 1)};
+  opacity: ${({ isRecording }) => (isRecording ? 0.6 : 1)};
   z-index: 4;
 `;
-const QuestionButton = ({ onClick, src }) => {
+const QuestionButton = ({ onClick, src, isRecording }) => {
   const [isclicked, setisclicked] = useState(false);
 
   const handleMouseDown = () => {
@@ -66,10 +72,14 @@ const QuestionButton = ({ onClick, src }) => {
       onTouchEnd={handleMouseUp}
       onClick={onClick}
     >
-      <QuestionButtonPurpleCircle isclicked={isclicked} />
+      <QuestionButtonPurpleCircle
+        isclicked={isclicked}
+        isRecording={isRecording}
+      />
       <QuestionButtonWhiteCircle />
       <QuestionButtonImg
         isclicked={isclicked}
+        isRecording={isRecording}
         src={src}
         alt="Question button"
       />
@@ -105,21 +115,6 @@ const QuestionButtonBackground = styled.div`
   flex-direction: column;
   flex-shrink: 0;
 `;
-
-const QuestionButtonWithBackground = ({ onClick }) => {
-  return (
-    <QuestionButtonBackground>
-      <QuestionButtonWithText>
-        <QuestionButton onClick={onClick} />
-        <QuestionButtonText type="24B" color="WHITE">
-          질문하기
-        </QuestionButtonText>
-      </QuestionButtonWithText>
-    </QuestionButtonBackground>
-  );
-};
-
-// ------------------------------------------
 
 const QuestionOrSendButtonWithBackground = ({ setAudioSrc, addChat }) => {
   const [audioRecorder, setAudioRecorder] = useState(null);
@@ -213,6 +208,7 @@ const QuestionOrSendButtonWithBackground = ({ setAudioSrc, addChat }) => {
           <QuestionButton
             onClick={recordStop}
             src="/images/send_button_symbol.svg"
+            isRecording={true}
           />
           <QuestionButtonText type="24B" color="WHITE">
             전송하기
@@ -223,6 +219,7 @@ const QuestionOrSendButtonWithBackground = ({ setAudioSrc, addChat }) => {
           <QuestionButton
             onClick={start}
             src="/images/question_button_symbol.svg"
+            isRecording={false}
           />
           <QuestionButtonText type="24B" color="WHITE">
             질문하기

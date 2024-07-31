@@ -205,7 +205,7 @@ export const Home = () => {
             );
           })
         ) : (
-          <div>Loading...</div>
+          <div> </div>
         )}
       </ScrollableContainer>
     </HomeWrapper>

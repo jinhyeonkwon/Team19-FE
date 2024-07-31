@@ -44,7 +44,7 @@ const QuestionButtonImg = styled.img`
   opacity: ${({ isclicked }) => (isclicked ? 0.6 : 1)};
   z-index: 4;
 `;
-const QuestionButton = ({ onClick }) => {
+const QuestionButton = ({ onClick, isRecording, setIsRecording }) => {
   const [isclicked, setisclicked] = useState(false);
 
   const handleMouseDown = () => {
@@ -63,7 +63,10 @@ const QuestionButton = ({ onClick }) => {
       onTouchEnd={handleMouseUp}
       onClick={onClick}
     >
-      <QuestionButtonPurpleCircle isclicked={isclicked} />
+      <QuestionButtonPurpleCircle
+        isclicked={isclicked}
+        isRecording={isRecording}
+      />
       <QuestionButtonWhiteCircle />
       <QuestionButtonImg
         isclicked={isclicked}
@@ -104,10 +107,15 @@ const QuestionButtonBackground = styled.div`
 `;
 
 const QuestionButtonWithBackground = ({ onClick }) => {
+  const [isRecording, setIsRecording] = useState(false);
   return (
     <QuestionButtonBackground>
       <QuestionButtonWithText>
-        <QuestionButton onClick={onClick} />
+        <QuestionButton
+          onClick={onClick}
+          isRecording={isRecording}
+          setIsRecording={setIsRecording}
+        />
         <QuestionButtonText type="24B" color="WHITE">
           질문하기
         </QuestionButtonText>
