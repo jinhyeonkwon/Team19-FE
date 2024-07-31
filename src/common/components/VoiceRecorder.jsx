@@ -68,10 +68,7 @@ const VoiceRecorder = ({ setAudioSrc, addChat }) => {
           addChat({
             text: response1_data.response_data,
             isMine: false,
-            imagePath:
-              path !== 'nono'
-                ? APIBase + path + `?${new Date().getTime()}`
-                : null,
+            imagePath: path !== 'nono' ? APIBase + path : null,
           });
 
           console.log('Success:', response2);
