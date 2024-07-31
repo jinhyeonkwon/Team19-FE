@@ -24,9 +24,10 @@ const LogoWithMargin = styled.div`
 
 const MyPageWithMargin = styled.div`
   margin-right: 24px;
-  margin-top: auto;
-  margin-bottom: 22px;
+  margin-top: 22px;
+  margin-bottom: 13px;
 `;
+// margin-top이랑 bottom이 원래 반대였으나 환경 맞추어 수정
 
 export const HomeHeader = () => (
   <HomeHeaderWrapper>

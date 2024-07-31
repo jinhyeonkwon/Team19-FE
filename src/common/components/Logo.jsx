@@ -9,6 +9,7 @@ const Moya = styled.div`
   line-height: 150%; /* 47.885px */
   letter-spacing: -0.638px;
   vertical-align: middle;
+  margin-top: 13px;
 `;
 
 const Q = styled.div`
@@ -20,14 +21,15 @@ const Q = styled.div`
   line-height: 150%;
   letter-spacing: -0.638px;
   vertical-align: middle;
+  margin-top: 13px;
 `;
+// margin-top이 원래 없었으나 환경 맞추어 수정
 
 const LogoWrapper = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
-
   gap: 0px;
 `;
 

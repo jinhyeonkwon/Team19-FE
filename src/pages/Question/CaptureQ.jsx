@@ -38,6 +38,7 @@ const CapturedImageWrapper = styled.div`
 
 const CapturedImage = styled.img`
   object-fit: cover;
+  height: 100%;
   z-index: 1;
 `;
 
