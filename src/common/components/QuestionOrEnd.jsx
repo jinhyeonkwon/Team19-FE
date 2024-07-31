@@ -116,7 +116,11 @@ const QuestionButtonBackground = styled.div`
   flex-shrink: 0;
 `;
 
-const QuestionOrSendButtonWithBackground = ({ setAudioSrc, addChat }) => {
+const QuestionOrSendButtonWithBackground = ({
+  setAudioSrc,
+  addChat,
+  setIsGenerating,
+}) => {
   const [audioRecorder, setAudioRecorder] = useState(null);
   const [isRecording, setIsRecording] = useState(false);
 
@@ -171,6 +175,11 @@ const QuestionOrSendButtonWithBackground = ({ setAudioSrc, addChat }) => {
             responseType: 'blob',
           });
 
+          // alert(response1_data.generate_image_TF);
+          if (response1_data.generate_image_TF) {
+            setIsGenerating(true);
+          }
+
           console.log('3번째 요청 시작!');
           const response3 = await axiosInstance.get(
             '/get_generated_image_data',
@@ -188,6 +197,9 @@ const QuestionOrSendButtonWithBackground = ({ setAudioSrc, addChat }) => {
             isMine: false,
             imagePath: path !== 'nono' ? APIBase + path : null,
           });
+          if (response1_data.generate_image_TF) {
+            setIsGenerating(false);
+          }
 
           console.log('Success:', response2);
           const responseAudioBlob = response2.data;

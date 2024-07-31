@@ -152,6 +152,7 @@ const CaptureQ = () => {
   // 0 : 촬영, 1 : 채팅
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const [chattingTitle, setChattingTitle] = useState('모야Q 채팅하기');
 
@@ -214,7 +215,6 @@ const CaptureQ = () => {
             src="/images/capture_square.svg"
             alt="capture square"
           />
-          w
           {isLoading && (
             <LoadingModal
               first="이미지 분석 중..."
@@ -253,6 +253,12 @@ const CaptureQ = () => {
               second="모야가 대화 내용을 정리하고 있어!"
             />
           )}
+          {isGenerating && (
+            <LoadingModal
+              first="그림 그리는 중..."
+              second="모야가 그림을 그리고 있어!"
+            />
+          )}
           <ChattingHeaderWrapper>
             <ChattingHeader
               text={chattingTitle}
@@ -271,6 +277,8 @@ const CaptureQ = () => {
             <QuestionOrSendButtonWithBackgroundWrapper
               setAudioSrc={setAudioSrc}
               addChat={addChat}
+              isGenerating={isGenerating}
+              setIsGenerating={setIsGenerating}
             />
           </QuestionButtonWrapper>
         </ChattingStepWrapper>

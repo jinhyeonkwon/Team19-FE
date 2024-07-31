@@ -36,7 +36,7 @@ const ModalTexts = styled.div`
 
 const ModalInnerWrapper = styled.div`
   display: flex;
-  width: 225px;
+  width: 265px;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -47,7 +47,7 @@ export const LoadingModal = ({ first, second }) => (
   <ModalBackground>
     <ModalBox>
       <ModalInnerWrapper>
-        <img src="/images/moya_with_question.svg" alt="loading" />
+        <img src="/images/loading_moya.gif" alt="loading" />
         <ModalTexts>
           <StyledTypography type="20R" ta="center" color="BLACK">
             {first}
