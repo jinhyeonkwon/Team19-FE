@@ -1,14 +1,13 @@
 import React, { useEffect, useState, useCallback } from 'react';
-
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-
 import { HomeHeader } from '../../common/components/HomeHeader';
 import { HomeSection } from '../../common/components/HomeSection';
 import { HorizontalScrollableContainer } from '../../common/components/HorizontalScrollableContainer';
 import { DictCard } from '../../common/components/DictCard';
-
 import APIBase from '../../services/APIBase';
+import { initModel } from '../../services/initModel';
+import { getAllData } from '../../services/getAllData';
 
 const HomeWrapper = styled.div`
   display: flex;
@@ -18,7 +17,7 @@ const HomeWrapper = styled.div`
   gap: 24px;
   height: 100%;
   background: #fff7ec;
-`; // 24px는 임의의 값
+`;
 
 const ScrollableContainer = styled.div`
   width: 100%;
@@ -34,7 +33,7 @@ const ScrollableContainer = styled.div`
   &::-webkit-scrollbar {
     display: none;
   }
-`; // 24px는 임의의 값
+`;
 
 const HomeHeaderWrapper = styled.div`
   position: absolute;
@@ -44,14 +43,6 @@ const HomeHeaderWrapper = styled.div`
   left: 50%;
   transform: translateX(-50%);
 `;
-
-// const HeaderAndQuestionButton = styled.div`
-//   width: 390px;
-//   height: 365px;
-//   flex-shrink: 0;
-//   border-radius: 0px 0px 27px 27px;
-//   background: linear-gradient(163deg, #c5b0ff 11.96%, #9c81ff 97.33%);
-// `;
 
 const QuestionButton = styled.div`
   display: flex;
@@ -104,7 +95,7 @@ const dummyObj = {
 const HorizontalScrollableContainerWithData = ({ dictObj }) => (
   <HorizontalScrollableContainer>
     {Object.entries(dictObj).map(([key, value]) => (
-      <NoMarginLink to={`/dictionary?num=${key.split('data_')[1]}`}>
+      <NoMarginLink key={key} to={`/dictionary?num=${key.split('data_')[1]}`}>
         <DictCard
           num={key.split('data_')[1]}
           imageSrc={APIBase + `/data/data_${key.split('data_')[1]}/test.jpg`}
@@ -119,7 +110,30 @@ const HorizontalScrollableContainerWithData = ({ dictObj }) => (
 );
 
 export const Home = () => {
-  const [dictData, setDictData] = useState(dummyObj);
+  const [dictData, setDictData] = useState(null);
+
+  useEffect(() => {
+    initModel();
+  }, []);
+
+  const getDictData = useCallback(async () => {
+    try {
+      const data = await getAllData();
+      console.log('data 받음');
+      console.log(data);
+      const formattedData = {};
+      Object.keys(data).forEach((key) => {
+        formattedData[key] = data[key];
+      });
+      setDictData(formattedData);
+    } catch (err) {
+      console.error('Error getting dict data', err);
+    }
+  }, []);
+
+  useEffect(() => {
+    getDictData();
+  }, [getDictData]);
 
   return (
     <HomeWrapper>
@@ -140,13 +154,21 @@ export const Home = () => {
           title="최근에 한 질문 도감"
           subtitle="테마 별로 내가 질문한 사진을 확인해 봐!"
         >
-          <HorizontalScrollableContainerWithData dictObj={dictData} />
+          {dictData ? (
+            <HorizontalScrollableContainerWithData dictObj={dictData} />
+          ) : (
+            <div>Loading...</div>
+          )}
         </HomeSection>
         <HomeSection
           title="최근에 한 질문 도감"
           subtitle="테마 별로 내가 질문한 사진을 확인해 봐!"
         >
-          <HorizontalScrollableContainerWithData dictObj={dictData} />
+          {dictData ? (
+            <HorizontalScrollableContainerWithData dictObj={dictData} />
+          ) : (
+            <div>Loading...</div>
+          )}
         </HomeSection>
       </ScrollableContainer>
     </HomeWrapper>

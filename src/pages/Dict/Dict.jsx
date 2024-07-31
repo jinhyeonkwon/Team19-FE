@@ -5,6 +5,8 @@ import { useSearchParams } from 'react-router-dom';
 import { RoundBox } from '../../common/components/RoundBox';
 import StyledTypography from '../../common/components/StyledTypography';
 import APIBase from '../../services/APIBase';
+import { getOneData } from '../../services/getOneData';
+import { useEffect, useState } from 'react';
 
 const Container = styled.div`
   display: flex;
@@ -41,7 +43,6 @@ const RoundBoxContainer = styled.div`
   justify-content: flex-start;
   align-items: center;
   gap: 8px;
-  z-index: 2;
 `;
 
 const Summary = styled.div`
@@ -123,15 +124,75 @@ const WithoutImage = styled.div`
 
 export const Dict = () => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [data, setData] = useState(null);
   const num = searchParams.get('num');
   const dummyTitle = '오므라이스가 뭐야?';
   const dummyQuestions = ['질문 1번이야.', '질문 2번이야.'];
+
+  const getConversationData = async () => {
+    const data = await getOneData(num);
+    setData(data);
+  };
+
+  useEffect(() => {
+    const getConversationData = async () => {
+      const fetchedData = await getOneData(num);
+      setData(fetchedData);
+    };
+
+    getConversationData();
+  }, [num]);
+
+  if (!data) {
+    return (
+      <Container>
+        <BackgroundImage src={`${APIBase}/data/data_${num}/test.jpg`} />
+        <HeaderWrapper>
+          <ChattingHeader text="로딩 중..." backButtonLinkTo={'/'} />
+        </HeaderWrapper>
+        <ContentsWrapper>
+          <RoundBoxContainer>
+            <RoundBox color="WHITE">
+              <RecommendedQuestion>
+                <RecommendQuestionHeader>
+                  <RecommendedQuestionTextWrapper></RecommendedQuestionTextWrapper>
+                  <img src="/images/mini_moya.svg" alt="mini moya" />
+                </RecommendQuestionHeader>
+                <RecommendedQuestionList>
+                  <QuestionRoundBox>
+                    <StyledTypography color="WHITE" type="16B" ta="center">
+                      {'로딩 중...'}
+                    </StyledTypography>
+                  </QuestionRoundBox>
+                  <QuestionRoundBox>
+                    <StyledTypography color="WHITE" type="16B" ta="center">
+                      {'로딩 중...'}
+                    </StyledTypography>
+                  </QuestionRoundBox>
+                </RecommendedQuestionList>
+              </RecommendedQuestion>
+            </RoundBox>
+            <RoundBox color="WHITE">
+              <Summary>
+                <StyledTypography color="GRAY 800" type="16R" ta="left">
+                  대화 요약
+                </StyledTypography>
+                <StyledTypography color="GRAY 1000" type="16R" ta="left">
+                  {'로딩 중...'}
+                </StyledTypography>
+              </Summary>
+            </RoundBox>
+          </RoundBoxContainer>
+        </ContentsWrapper>
+      </Container>
+    );
+  }
 
   return (
     <Container>
       <BackgroundImage src={`${APIBase}/data/data_${num}/test.jpg`} />
       <HeaderWrapper>
-        <ChattingHeader text={num} backButtonLinkTo={'/'} />
+        <ChattingHeader text={data.short_summary} backButtonLinkTo={'/'} />
       </HeaderWrapper>
       <ContentsWrapper>
         <RoundBoxContainer>
@@ -144,12 +205,12 @@ export const Dict = () => {
               <RecommendedQuestionList>
                 <QuestionRoundBox>
                   <StyledTypography color="WHITE" type="16B" ta="center">
-                    {`Q. ${dummyQuestions[0]}`}
+                    {`Q. ${data.recommend_questions_1}`}
                   </StyledTypography>
                 </QuestionRoundBox>
                 <QuestionRoundBox>
                   <StyledTypography color="WHITE" type="16B" ta="center">
-                    {`Q. ${dummyQuestions[1]}`}
+                    {`Q. ${data.recommend_questions_2}`}
                   </StyledTypography>
                 </QuestionRoundBox>
               </RecommendedQuestionList>
@@ -161,7 +222,7 @@ export const Dict = () => {
                 대화 요약
               </StyledTypography>
               <StyledTypography color="GRAY 1000" type="16R" ta="left">
-                {dummyTitle}
+                {data.long_summary}
               </StyledTypography>
             </Summary>
           </RoundBox>
