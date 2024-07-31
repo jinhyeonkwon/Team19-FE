@@ -91,7 +91,7 @@ const WebcamComp = ({
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
-        videoConstraints={{ facingMode: 'user' }}
+        videoConstraints={{ facingMode: 'environment' }}
       />
     </WebcamWrapper>
   );
