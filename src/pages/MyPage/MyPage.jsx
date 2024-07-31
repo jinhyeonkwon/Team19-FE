@@ -175,7 +175,7 @@ export const MyPage = () => {
               아이 프로필
             </StyledTypography>
             <WhiteBox>
-              <img src="images/dummy_child_profile.svg" alt="child_profile" />
+              <img src="/images/dummy_child_profile.svg" alt="child_profile" />
             </WhiteBox>
           </ChildProfile>
           <AdjustDifficulty>

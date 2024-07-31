@@ -49,12 +49,12 @@ const HomeHeaderWrapper = styled.div`
 const QuestionButton = styled.div`
   display: flex;
   width: 390px;
-  height: 335px;
+  height: 315px;
   flex-shrink: 0;
   border-radius: 0px 0px 27px 27px;
   background: linear-gradient(163deg, #c5b0ff 11.96%, #9c81ff 97.33%);
   padding: 0;
-  padding-top: 30px;
+  padding-top: 50px;
   flex-direction: column;
   align-items: center;
   justify-content: center;
