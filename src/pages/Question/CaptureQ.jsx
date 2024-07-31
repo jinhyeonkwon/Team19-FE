@@ -136,6 +136,13 @@ const ScrollableContainer = styled.div`
 `;
 // height: 원래 426px이었음
 
+const CaptureSquare = styled.img`
+  position: absolute;
+  top: 286px;
+  left: 50%;
+  transform: translateX(-50%);
+`;
+
 const CaptureQ = () => {
   const [imageUrl, setImageUrl] = useState(null);
 
@@ -203,6 +210,11 @@ const CaptureQ = () => {
     <div>
       {step === 0 ? (
         <div>
+          <CaptureSquare
+            src="/images/capture_square.svg"
+            alt="capture square"
+          />
+          w
           {isLoading && (
             <LoadingModal
               first="이미지 분석 중..."
