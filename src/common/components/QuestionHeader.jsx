@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import StyledTypography from './StyledTypography';
 import BackButton from './BackButton';
+import { Link } from 'react-router-dom';
 
 const QuestionHeaderBackground = styled.div`
   position: absolute;
@@ -32,11 +33,13 @@ const QuestionHeaderText = styled(StyledTypography)`
   transform: translate(-50%, -50%);
 `;
 
-const QuestionHeader = ({ text }) => {
+const QuestionHeader = ({ text, backTo }) => {
   return (
     <QuestionHeaderBackground>
       <QuestionHeaderBackButtonWrapper>
-        <BackButton />
+        <Link to={backTo}>
+          <BackButton />
+        </Link>
       </QuestionHeaderBackButtonWrapper>
       <QuestionHeaderText type="20SB" ta="center" color="WHITE">
         {text}

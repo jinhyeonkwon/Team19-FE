@@ -50,7 +50,8 @@ const VoiceRecorder = ({ setAudioSrc }) => {
           .then((response1) => {
             console.log('2번째 요청 시작');
             return axiosInstance
-              .get('/get_audio_data', {
+              .post('/get_audio_data', {
+                // 원래 get 이었음
                 // headers: {
                 //   'Content-Type': 'multipart/form-data',
                 // },

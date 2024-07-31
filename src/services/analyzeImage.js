@@ -21,7 +21,8 @@ export const analyzeImage = (imgSrc) => {
     .then((response1) => {
       console.log('(첫 통신) 2번째 요청');
       return axiosInstance
-        .get('/get_audio_data', {
+        .post('/get_audio_data', {
+          // 원래 get 이었음
           // headers: {
           //   'Content-Type': 'multipart/form-data',
           // },

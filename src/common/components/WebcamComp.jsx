@@ -52,6 +52,7 @@ const WebcamComp = ({ setImageUrl, setIsLoading, setStep, setAudioSrc }) => {
         const { response1, response2 } = await analyzeImage(imgSrc); // response2
         console.log('analyzed', response1.data);
         const audioBlob = response2.data;
+        console.log(typeof audioBlob);
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioSrc(audioUrl);
       } catch (err) {

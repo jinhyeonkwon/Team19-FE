@@ -11,7 +11,6 @@ import QuestionButtonWithBackground from '../../common/components/QuestionButton
 import ChattingHeader from '../../common/components/ChattingHeader';
 import { ChattingMessage } from '../../common/components/ChattingMessage';
 
-import { audioTestAndSave } from '../../services/analyzeAudio';
 import { finishMessages } from '../../services/finishMessages';
 
 import APIBase from '../../services/APIBase';
@@ -116,6 +115,7 @@ const CaptureQ = () => {
 
   useEffect(() => {
     if (audioSrc) {
+      console.log(audioSrc);
       const audio = new Audio(audioSrc);
       audio.play();
     }
@@ -147,7 +147,7 @@ const CaptureQ = () => {
               <CapturedImage src={imageUrl} alt="captured image" />
             </CapturedImageWrapper>
           )}
-          <QuestionHeader text="모야Q 질문하기" />
+          <QuestionHeader text="모야Q 질문하기" backTo="/" />
           <FunctionWrapper isLoading={isLoading}>
             <InfoBoxWrapper>
               <InfoBox
