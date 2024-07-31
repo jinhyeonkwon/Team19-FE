@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 
 import styled from 'styled-components';
 import ChattingHeader from '../../common/components/ChattingHeader';
@@ -86,7 +86,7 @@ const Dummy = styled.div`
   height: ${({ height }) => height}px;
 `;
 
-const AdjustDifficulty = styled.div`
+const OneSection = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
@@ -158,8 +158,141 @@ const TwoTitle = ({ title1, title2 }) => (
   </TwoTitlesWrapper>
 );
 
+const ImgWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+`;
+
+const SmallTagWrapper = styled.div`
+  display: flex;
+  height: 26px;
+  padding: 4px 20px;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  border-radius: 23px;
+  background: ${({ theme }) => theme.colors.PURPLE[100]};
+`;
+
+const SmallTag = ({ text }) => {
+  return (
+    <SmallTagWrapper>
+      <StyledTypography color="PURPLE 600" type="12B" ta="center">
+        {text}
+      </StyledTypography>
+    </SmallTagWrapper>
+  );
+};
+
+const dummySmallTags = [
+  '오므라이스',
+  '볶음밥',
+  '계란',
+  '식사',
+  '과일',
+  '파인애플',
+  '매실',
+];
+
+const dummyBigTag = '요리';
+const dummyCnt = 4;
+
+const dummyTodayQuestion = '가장 만들어보고 싶은 요리가 뭐야?';
+
+const SmallTagsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 7px;
+`;
+
+const TagsTitleWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+`;
+
+const TagsTitle = ({ bigTag, cnt }) => {
+  return (
+    <TagsTitleWrapper>
+      <StyledTypography color="GRAY 800" type="20SB" ta="left">
+        {bigTag}
+      </StyledTypography>
+      <StyledTypography color="PURPLE 600" type="20SB" ta="left">
+        {`총 ${cnt}회`}
+      </StyledTypography>
+    </TagsTitleWrapper>
+  );
+};
+
+const SmallTags = ({ smallTagList }) => {
+  return (
+    <SmallTagsWrapper>
+      {smallTagList.map((tag, index) => (
+        <SmallTag key={index} text={tag} />
+      ))}
+    </SmallTagsWrapper>
+  );
+};
+
+const TagsInner = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  height: 100%:
+`;
+
+const TodayQuestionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 4px;
+`;
+
+const TodayQuestion = ({ question }) => {
+  return (
+    <TodayQuestionWrapper>
+      <StyledTypography color="PURPLE 600" type="16SB" ta="left">
+        오늘의 질문
+      </StyledTypography>
+      <StyledTypography color="GRAY 800" type="20SB" ta="left">
+        {question}
+      </StyledTypography>
+    </TodayQuestionWrapper>
+  );
+};
+
+const AlertWhiteBox = styled(WhiteBox)`
+  padding: 24px 32px;
+`;
+
+const AlertInner = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+`;
+
+// 일단 dummy 기능이라 toggle 여부 전역 상태 관리 안 함
+const AlertText = () => {
+  return (
+    <StyledTypography color="BLACK" type="20R" ta="left">
+      매일 추천 질문 알림 받기
+    </StyledTypography>
+  );
+};
+
 export const MyPage = () => {
   const { diff, setDiff } = useContext(DiffContext);
+  const [toggle, setToggle] = useState(false);
   return (
     <Container>
       <HeaderWrapper>
@@ -178,7 +311,7 @@ export const MyPage = () => {
               <img src="/images/dummy_child_profile.svg" alt="child_profile" />
             </WhiteBox>
           </ChildProfile>
-          <AdjustDifficulty>
+          <OneSection>
             <TwoTitle
               title1="모야Q 언어 난이도"
               title2="발달단계에 따라 챗봇의 언어 표현 수준을 설정해요."
@@ -189,7 +322,45 @@ export const MyPage = () => {
                 <SetDifficulty />
               </DifficultyInner>
             </WhiteBox>
-          </AdjustDifficulty>
+          </OneSection>
+          <OneSection>
+            <TwoTitle
+              title1="아이의 학습 리포트"
+              title2="아이의 학습 리포트를 확인해보세요."
+            />
+            <WhiteBox padding={32}>
+              <ImgWrapper>
+                <img src="/images/dummy_graph.svg" alt="report" />
+              </ImgWrapper>
+            </WhiteBox>
+            <WhiteBox padding={32}>
+              <TagsInner>
+                <TagsTitle bigTag={`${dummyBigTag} 태그`} cnt={dummyCnt} />
+                <SmallTags smallTagList={dummySmallTags} />
+              </TagsInner>
+            </WhiteBox>
+          </OneSection>
+          <OneSection>
+            <TwoTitle
+              title1="오늘의 추천 질문"
+              title2="아이와 더 가까워질 수 있는 질문을 추천드릴게요."
+            />
+            <WhiteBox padding={32}>
+              <TodayQuestion question={dummyTodayQuestion} />
+            </WhiteBox>
+            <AlertWhiteBox>
+              <AlertInner>
+                <AlertText />
+                <img
+                  src={
+                    toggle ? '/images/toggle_on.svg' : '/images/toggle_off.svg'
+                  }
+                  alt="toggle"
+                  onClick={() => setToggle(!toggle)}
+                />
+              </AlertInner>
+            </AlertWhiteBox>
+          </OneSection>
         </ScrollableContainer>
       </ContentsWrapper>
     </Container>
