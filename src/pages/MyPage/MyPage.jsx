@@ -40,7 +40,7 @@ const ContentsWrapper = styled.div`
 
 const ScrollableContainer = styled.div`
   width: 342px;
-  height: 661px;
+  height: 671px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -53,6 +53,7 @@ const ScrollableContainer = styled.div`
     display: none;
   }
 `;
+// height: 원래 661px이었음
 
 const ChildProfile = styled.div`
   display: flex;

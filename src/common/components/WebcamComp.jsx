@@ -87,7 +87,7 @@ const WebcamComp = ({
       <CaptureButtonWithBackground onClick={onButtonClick} />
       <StyledWebcam
         width="390px"
-        height="797px"
+        height="807px"
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
@@ -96,5 +96,6 @@ const WebcamComp = ({
     </WebcamWrapper>
   );
 };
+// height: 원래 797px이었음
 
 export default WebcamComp;

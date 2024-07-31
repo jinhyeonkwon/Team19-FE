@@ -31,9 +31,10 @@ const FunctionWrapper = styled.div`
 
 const CapturedImageWrapper = styled.div`
   position: absolute;
-  height: 797px;
+  height: 807px;
   width: 390px;
 `;
+// height: 원래 797px이었음
 
 const CapturedImage = styled.img`
   object-fit: cover;
@@ -44,9 +45,10 @@ const ChattingStepWrapper = styled.div`
   position: relative;
   display: flex;
   flex-direction: column;
-  height: 797px;
+  height: 807px;
   width: 390px;
 `;
+// height: 원래 797px이었음
 
 const ChattingArea = styled.div`
   flex: 1;
@@ -118,7 +120,7 @@ const RealChatList = ({ chatList }) => (
 
 const ScrollableContainer = styled.div`
   width: 100%;
-  height: 426px;
+  height: 436px;
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -131,6 +133,7 @@ const ScrollableContainer = styled.div`
     display: none;
   }
 `;
+// height: 원래 426px이었음
 
 const CaptureQ = () => {
   const [imageUrl, setImageUrl] = useState(null);
