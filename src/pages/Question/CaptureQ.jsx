@@ -93,17 +93,22 @@ const ChatList = styled.div`
   gap: 8px;
 `;
 
+const ImgWrapper = styled.img`
+  max-width: 225px;
+`;
+
 const RealChatList = ({ chatList }) => (
   <ChatList>
     {chatList.map(({ id, text, isMine, imagePath }) => (
       <React.Fragment key={id}>
         {imagePath ? (
           <ChattingMessage
-            text={<img src={imagePath} alt="chat image" />}
+            text={<ImgWrapper src={imagePath} alt="chat image" />}
             isMine={isMine}
+            imgExist={true}
           />
         ) : (
-          <ChattingMessage text={text} isMine={isMine} />
+          <ChattingMessage text={text} isMine={isMine} imgExist={false} />
         )}
       </React.Fragment>
     ))}
