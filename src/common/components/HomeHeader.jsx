@@ -8,7 +8,8 @@ const HomeHeaderWrapper = styled.div`
   height: 65px;
   width: 100%;
   flex-shrink: 0;
-  background: ${({ theme }) => theme.colors.YELLOW[500]};
+  background: rgba(255, 255, 255, 0.26);
+  backdrop-filter: blur(12.100000381469727px);
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -27,7 +28,7 @@ const MyPageWithMargin = styled.div`
   margin-bottom: 22px;
 `;
 
-export const HomeHeader = () => {
+export const HomeHeader = () => (
   <HomeHeaderWrapper>
     <LogoWithMargin>
       <Logo />
@@ -35,5 +36,5 @@ export const HomeHeader = () => {
     <MyPageWithMargin>
       <MyPageButton goTo="/mypage" />
     </MyPageWithMargin>
-  </HomeHeaderWrapper>;
-};
+  </HomeHeaderWrapper>
+);

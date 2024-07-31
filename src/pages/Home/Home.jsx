@@ -15,6 +15,7 @@ const HomeWrapper = styled.div`
   justify-content: flex-start;
   gap: 24px;
   height: 100%;
+  background: #fff7ec;
 `; // 24px는 임의의 값
 
 const ScrollableContainer = styled.div`
@@ -41,30 +42,40 @@ const HomeHeaderWrapper = styled.div`
   transform: translateX(-50%);
 `;
 
-const HeaderAndQuestionButton = styled.div`
+// const HeaderAndQuestionButton = styled.div`
+//   width: 390px;
+//   height: 365px;
+//   flex-shrink: 0;
+//   border-radius: 0px 0px 27px 27px;
+//   background: linear-gradient(163deg, #c5b0ff 11.96%, #9c81ff 97.33%);
+// `;
+
+const QuestionButton = styled.div`
+  display: flex;
   width: 390px;
-  height: 365px;
+  height: 335px;
   flex-shrink: 0;
   border-radius: 0px 0px 27px 27px;
   background: linear-gradient(163deg, #c5b0ff 11.96%, #9c81ff 97.33%);
+  padding: 0;
+  padding-top: 30px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 `;
 
 export const Home = () => (
   <HomeWrapper>
-    <HeaderAndQuestionButton>
-      <HomeHeaderWrapper>
-        <HomeHeader />
-      </HomeHeaderWrapper>
-    </HeaderAndQuestionButton>
+    <HomeHeaderWrapper>
+      <HomeHeader />
+    </HomeHeaderWrapper>
     <ScrollableContainer>
-      <HomeContent
-        title="모야놀이 시작하기"
-        subtitle="모야Q에게 궁금한 것을 물어보자"
-      >
+      <QuestionButton>
+        <img src="/images/question_button_new_image.svg" alt="question_image" />
         <Link to="/question">
-          <img src="/images/question_start_button.svg" alt="question" />
+          <img src="/images/question_button_new.svg" alt="question" />
         </Link>
-      </HomeContent>
+      </QuestionButton>
       <HomeContent
         title="최근에 한 질문 도감"
         subtitle="테마 별로 내가 질문한 사진을 확인해 봐!"
