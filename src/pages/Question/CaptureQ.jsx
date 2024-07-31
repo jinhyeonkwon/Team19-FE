@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
-
 import Queue from 'queue';
 
 import WebcamComp from '../../common/components/WebcamComp';
@@ -99,7 +98,7 @@ const ImgWrapper = styled.img`
 
 const RealChatList = ({ chatList }) => (
   <ChatList>
-    {chatList.map(({ id, text, isMine, imagePath }) => (
+    {chatList.slice(-3).map(({ id, text, isMine, imagePath }) => (
       <React.Fragment key={id}>
         {imagePath ? (
           <ChattingMessage
@@ -114,6 +113,22 @@ const RealChatList = ({ chatList }) => (
     ))}
   </ChatList>
 );
+
+const ScrollableContainer = styled.div`
+  width: 100%;
+  height: 426px;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  overflow-y: scroll;
+  gap: 24px;
+  align-items: center;
+  padding-bottom: 24px;
+  justify-content: flex-start;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 const CaptureQ = () => {
   const [imageUrl, setImageUrl] = useState(null);
@@ -218,10 +233,15 @@ const CaptureQ = () => {
               backButtonOnClick={questionBackButtonClick}
             />
           </ChattingHeaderWrapper>
-          <ChattingArea>
-            <RealChatList chatList={chatQueue} />
-            <VoiceRecorderWrapper setAudioSrc={setAudioSrc} addChat={addChat} />
-          </ChattingArea>
+          <ScrollableContainer>
+            <ChattingArea>
+              <RealChatList chatList={chatQueue} />
+              <VoiceRecorderWrapper
+                setAudioSrc={setAudioSrc}
+                addChat={addChat}
+              />
+            </ChattingArea>
+          </ScrollableContainer>
           <CapturedImageWrapper>
             <CapturedImage src={imageUrl} alt="captured image" />
           </CapturedImageWrapper>

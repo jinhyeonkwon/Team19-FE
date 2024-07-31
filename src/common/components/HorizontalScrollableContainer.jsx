@@ -6,7 +6,7 @@ const HorizontalScrollableContainerWrapper = styled.div`
   flex-direction: row;
   justify-content: center;
   align-content: flex-start;
-  align-items: center;
+  align-items: flex-start;
   gap: 8px;
   align-self: stretch;
   overflow-x: auto;
