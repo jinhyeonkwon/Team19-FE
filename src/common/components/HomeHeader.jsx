@@ -8,7 +8,7 @@ const HomeHeaderWrapper = styled.div`
   height: 65px;
   width: 100%;
   flex-shrink: 0;
-  background: ${({ theme }) => theme.colors.YELLOW[100]};
+  background: ${({ theme }) => theme.colors.YELLOW[500]};
   display: flex;
   flex-direction: row;
   justify-content: space-between;

@@ -25,6 +25,7 @@ const WebcamComp = ({
   setAudioSrc,
   setChattingTitle,
   addChat,
+  clearChats,
 }) => {
   const webcamRef = React.useRef(null);
 
@@ -56,6 +57,7 @@ const WebcamComp = ({
       try {
         setIsLoading(true);
         console.log('로딩중..');
+        clearChats();
         const { response1, response2 } = await analyzeImage({
           imgSrc: imgSrc,
           addChat: addChat,

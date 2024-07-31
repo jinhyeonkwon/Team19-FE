@@ -138,6 +138,10 @@ const CaptureQ = () => {
     }
   }, [audioSrc]);
 
+  const clearChats = () => {
+    chatQueue.length = 0;
+  };
+
   const questionBackButtonClick = useCallback(async () => {
     const status = await finishMessages();
     if (status === 200) {
@@ -179,6 +183,7 @@ const CaptureQ = () => {
               setAudioSrc={setAudioSrc}
               setChattingTitle={setChattingTitle}
               addChat={addChat}
+              clearChats={clearChats}
             />
           </FunctionWrapper>
         </div>
