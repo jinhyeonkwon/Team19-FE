@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import StyledTypography from './StyledTypography';
-import { Link } from 'react-router-dom';
 
 const DictCardWrapper = styled.div`
   display: flex;

@@ -66,36 +66,6 @@ const NoMarginLink = styled(Link)`
   margin: 0;
 `;
 
-const dummyObj = {
-  data_00: {
-    short_summary: '오이 냉채와 피자가 먹고 싶다는 얘기를 나눴어!',
-    long_summary:
-      '여름에 시원한 오이 냉채를 보고 피자를 먹고 싶어하는 재미있는 대화를 나눴어!',
-    recommend_quetions_1: '어떤 피자를 제일 먼저 먹어보고 싶어?',
-    recommend_quetions_2: '피자를 직접 만들어 볼까?',
-    big_tag: ['음식', '놀이', '모험'],
-    small_tag: ['오이', '냉채', '피자', '요리', '여름'],
-  },
-  data_01: {
-    short_summary: '귀여운 고양이가 파란 눈으로 나를 바라보았다!',
-    long_summary:
-      '귀여운 파란 눈 고양이와 피자 이야기로 흥미진진한 대화가 펼쳐졌어!',
-    recommend_quetions_1: '피자에 어떤 재료를 넣으면 제일 맛있을까?',
-    recommend_quetions_2: '고양이 그림 그려볼까?',
-    big_tag: ['동물', '음식', '놀이'],
-    small_tag: ['고양이', '피자', '귀여움', '색깔', '그림'],
-  },
-  data_02: {
-    short_summary: '이건 내가 그냥 만든 예시다!',
-    long_summary:
-      '19팀이 해커톤 대상을 받았다는 주제로 흥미진진한 대화가 펼쳐졌어!',
-    recommend_quetions_1: '피자에 어떤 재료를 넣으면 제일 맛있을까?',
-    recommend_quetions_2: '고양이 그림 그려볼까?',
-    big_tag: ['놀이', '음식', '동물'],
-    small_tag: ['그림', '고양이', '피자', '귀여움', '색깔'],
-  },
-};
-
 const HorizontalScrollableContainerWithData = ({ dictObj }) => (
   <HorizontalScrollableContainer>
     {Object.entries(dictObj).map(([key, value]) => (
@@ -148,15 +118,15 @@ export const Home = () => {
     } catch (err) {
       console.log(err);
     }
-  });
+  }, []);
 
   useEffect(() => {
     getDictData();
-  }, []);
+  }, [getDictData]);
 
   useEffect(() => {
     getFilterList();
-  }, []);
+  }, [getFilterList]);
 
   return (
     <HomeWrapper>

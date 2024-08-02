@@ -115,24 +115,10 @@ const BackgroundImage = styled.img`
   z-index: 1;
 `;
 
-const WithoutImage = styled.div`
-  position: absoulte;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-`;
-
 export const Dict = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [data, setData] = useState(null);
   const num = searchParams.get('num');
-  const dummyTitle = '오므라이스가 뭐야?';
-  const dummyQuestions = ['질문 1번이야.', '질문 2번이야.'];
-
-  const getConversationData = async () => {
-    const data = await getOneData(num);
-    setData(data);
-  };
 
   useEffect(() => {
     const getConversationData = async () => {

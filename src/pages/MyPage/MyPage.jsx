@@ -194,19 +194,6 @@ const SmallTag = ({ text }) => {
   );
 };
 
-const dummySmallTags = [
-  '오므라이스',
-  '볶음밥',
-  '계란',
-  '식사',
-  '과일',
-  '파인애플',
-  '매실',
-];
-
-const dummyBigTag = '요리';
-const dummyCnt = 4;
-
 const dummyTodayQuestion = '가장 만들어보고 싶은 요리가 뭐야?';
 
 const SmallTagsWrapper = styled.div`
@@ -285,7 +272,7 @@ const AlertText = () => {
 };
 
 export const MyPage = () => {
-  const { diff, setDiff } = useContext(DiffContext);
+  const { diff } = useContext(DiffContext);
   const [toggle, setToggle] = useState(false);
   const [data, setData] = useState(null);
 

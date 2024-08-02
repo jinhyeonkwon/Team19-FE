@@ -1,6 +1,4 @@
 import React, { useEffect, useState, useCallback } from 'react';
-import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
-import Queue from 'queue';
 
 import WebcamComp from '../../common/components/WebcamComp';
 import QuestionHeader from '../../common/components/QuestionHeader';
@@ -8,13 +6,11 @@ import { InfoBox } from '../../common/components/FloatingInfobox';
 
 import styled from 'styled-components';
 import { LoadingModal } from '../../common/components/LoadingModal';
-import QuestionButtonWithBackground from '../../common/components/QuestionButtonWithText';
 import ChattingHeader from '../../common/components/ChattingHeader';
 import { ChattingMessage } from '../../common/components/ChattingMessage';
 
 import { finishMessages } from '../../services/finishMessages';
 
-import APIBase from '../../services/APIBase';
 import QuestionOrSendButtonWithBackground from '../../common/components/QuestionOrEnd';
 
 const InfoBoxWrapper = styled.div`
@@ -77,15 +73,6 @@ const QuestionOrSendButtonWithBackgroundWrapper = styled(
 )`
   z-index: 10;
 `;
-
-const dummyChat = [
-  {
-    id: 0,
-    text: '안녕하세요! 모야Q입니다. 긴 메시지가 나오면 과연 제대로 줄이 바뀔까요?',
-    isMine: false,
-  },
-  { id: 1, text: '오호 그렇군요!', isMine: true },
-];
 
 const chatQueue = [];
 

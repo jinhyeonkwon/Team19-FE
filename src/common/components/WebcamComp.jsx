@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 
@@ -6,8 +6,6 @@ import Webcam from 'react-webcam';
 import CaptureButtonWithBackground from './CaptureButtonWithText';
 
 import { analyzeImage } from '../../services/analyzeImage';
-import InfoBox from './FloatingInfobox';
-import { APITest } from '../../services/test/APITest';
 
 const WebcamWrapper = styled.div`
   width: 100%;

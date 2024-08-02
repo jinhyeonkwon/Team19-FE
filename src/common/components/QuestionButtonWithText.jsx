@@ -3,8 +3,6 @@ import { useState } from 'react';
 import styled from 'styled-components';
 import StyledTypography from './StyledTypography';
 
-import RecordRTC, { StereoAudioRecorder } from 'recordrtc';
-
 /* Question Button 관련 */
 const QuestionButtonWrapper = styled.button`
   position: relative;

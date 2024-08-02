@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import GlobalFrame from './common/components/GlobalFrame';
 import CaptureQ from './pages/Question/CaptureQ';
@@ -35,6 +34,6 @@ const App = () => {
       </div>
     </DiffContext.Provider>
   );
-}
+};
 
 export default App;
