@@ -147,7 +147,7 @@ const CaptureQ = () => {
 
   const addChat = ({ text, isMine, imagePath }) => {
     // 응답 받으면 수행할 것
-    console.log('채팅 메시지 추가');
+    // console.log('채팅 메시지 추가');
     if (imagePath) {
       chatQueue.push({
         id: chatQueue.length,
@@ -161,7 +161,7 @@ const CaptureQ = () => {
       text: text,
       isMine: isMine,
     });
-    console.log(chatQueue);
+    // console.log(chatQueue);
     setToRender(!toRender);
   };
 
@@ -171,7 +171,7 @@ const CaptureQ = () => {
 
   useEffect(() => {
     if (audioSrc) {
-      console.log(audioSrc);
+      // console.log(audioSrc);
       const audio = new Audio(audioSrc);
       audio.play();
     }

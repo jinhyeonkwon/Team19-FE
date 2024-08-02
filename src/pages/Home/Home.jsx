@@ -97,8 +97,8 @@ export const Home = () => {
   const getDictData = useCallback(async () => {
     try {
       const data = await getAllData();
-      console.log('data 받음');
-      console.log(data);
+      // console.log('data 받음');
+      // console.log(data);
       const formattedData = {};
       Object.keys(data).forEach((key) => {
         formattedData[key] = data[key];
@@ -112,8 +112,8 @@ export const Home = () => {
   const getFilterList = useCallback(async () => {
     try {
       const myyData = await myData();
-      console.log('my data 받음');
-      console.log(myyData);
+      // console.log('my data 받음');
+      // console.log(myyData);
       setFilterList(myyData.tag);
     } catch (err) {
       console.log(err);

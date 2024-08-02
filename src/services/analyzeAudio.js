@@ -18,7 +18,7 @@ export const analyzeAudio = (audioBlob) => {
       // }
     )
     .then((response1) => {
-      console.log('2번째 요청');
+      // console.log('2번째 요청');
       // 두 번째 요청: 텍스트 설명에 대한 오디오 파일을 요청
       return axiosInstance
         .get('/get_audio_data', {
@@ -55,8 +55,8 @@ export const audioTestAndSave = (blob) => {
   axiosInstance
     .post('/voice_test', formData)
     .then((response) => response.json())
-    .then((data) =>
-      console.log('Success : ' + data).catch((err) => {
+    .then(
+      ((data) => {}).catch((err) => {
         console.log('Error : ' + err);
       })
     );

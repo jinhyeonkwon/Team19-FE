@@ -54,13 +54,13 @@ const WebcamComp = ({
     if (imgSrc) {
       try {
         setIsLoading(true);
-        console.log('로딩중..');
+        // console.log('로딩중..');
         clearChats();
         const { response1, response2 } = await analyzeImage({
           imgSrc: imgSrc,
           addChat: addChat,
         }); // response2
-        console.log('analyzed', response1.data);
+        // console.log('analyzed', response1.data);
         const audioBlob = response2.data;
         const audioUrl = URL.createObjectURL(audioBlob);
         setAudioSrc(audioUrl);

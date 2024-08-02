@@ -19,7 +19,7 @@ export const analyzeImage = ({ imgSrc, addChat }) => {
       );
     })
     .then((response1) => {
-      console.log('2번째 요청');
+      // console.log('2번째 요청');
       addChat({ text: response1.data.response_data, isMine: false });
       return axiosInstance
         .get('/get_audio_data', {
@@ -29,8 +29,8 @@ export const analyzeImage = ({ imgSrc, addChat }) => {
           responseType: 'blob', // 응답을 Blob으로 받기
         })
         .then((response2) => {
-          console.log('상대방의 답변');
-          console.log(response2.data);
+          // console.log('상대방의 답변');
+          // console.log(response2.data);
           return { response1: response1, response2: response2 };
         });
     })
